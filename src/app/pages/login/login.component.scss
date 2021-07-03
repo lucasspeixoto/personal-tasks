@@ -1,0 +1,82 @@
+.background {
+  background: linear-gradient(116.82deg, #0b1641 15.47%, #013f7c 73.33%, #006bd3 100%);
+}
+
+.background-img {
+  background-image: url(../../../assets/images/background.png);
+  background-position: bottom;
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.titulo-app {
+  margin-left: 32%;
+  margin-right: 32%;
+  padding: 0% 1%;
+  color: #fff;
+}
+
+.container {
+  padding-bottom: 2%;
+  padding-left: 10%;
+  padding-right: 10%;
+  text-align: center;
+}
+
+.container-menu {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 5%;
+  text-align: left;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.texto {
+  margin: 0px;
+  padding: 10px;
+  color: #271560;
+  text-align: center;
+}
+
+.texto2 {
+  margin: 0px;
+  padding: 10px;
+  color: #271560;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media only screen and (max-width: 576px) {
+  .container-menu {
+      margin-left: 5%;
+      margin-right: 5%;
+      padding: 15% 2%;
+      text-align: left;
+      background-color: #fff;
+      border-radius: 5px;
+  }
+  .titulo-app {
+      margin-left: 5%;
+      margin-right: 5%;
+      padding: 0% 1%;
+      color: #fff;
+  }
+  img {
+      width: 85%;
+  }
+}
+
+.btn-language {
+  margin: 0.2%;
+  padding: 0.4375rem 0.875rem;
+}
+
+.center-text {
+  text-align: center;
+}
