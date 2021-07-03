@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(){
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   loginFormMake() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(3)]
+      password: ['', Validators.required]
     })
   }
 
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
 
   showPassword() {
     this.mostrarSenha = !this.mostrarSenha
+    console.log(this.loginForm)
   }
 
 }

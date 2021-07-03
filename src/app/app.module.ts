@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeNgModule } from './shared/modules/primeng.module';
 import { SharedCommonModule } from './shared/modules/sharedCommon.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SharedCommonModule } from './shared/modules/sharedCommon.module';
     AppRoutingModule,
 
     PrimeNgModule,
-    SharedCommonModule
+    SharedCommonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

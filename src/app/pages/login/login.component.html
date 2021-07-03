@@ -2,58 +2,89 @@
   <div class="background-img">
     <p-toast></p-toast>
 
-    <br>
+    <br />
 
     <div class="texto">
-      <img src="../assets/images/logo.png">
-      <p class="titulo-app">{{'login.welcome'}}</p>
+      <img src="../assets/images/logo.png" height="100" />
+      <p class="titulo-app">Seja Bem-Vindo</p>
     </div>
 
     <div class="container">
-
       <form [formGroup]="loginForm">
-
         <div class="container-menu">
-
           <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12">
               <h4>Login</h4>
-              <label for="login">{{'login.username'}}</label><br>
-              <input id="login" type="text" pInputText formControlName="username" placeholder="{{'login.username'}}"
-                required minlength="4" maxlength="20">
+              <label for="login">Usuário</label><br />
+              <input
+                id="login"
+                type="text"
+                pInputText
+                formControlName="username"
+                placeholder="Usuário"
+                required
+                minlength="4"
+                maxlength="20"
+              />
             </div>
 
-            <br>
+            <br />
 
             <div class="ui-g-12 ui-md-12">
-              <label for="senha">{{'login.password'}}</label><br>
+              <label for="senha">Senha</label
+              ><br />
               <div class="p-inputgroup">
-                <input id="senha" type="{{mostrarSenha ? 'text' : 'password' }}" pInputText formControlName="password"
-                  placeholder="{{'login.password'}}" required minlength="4" maxlength="30">
-                <button type="button" icon="{{mostrarSenha ? 'pi pi-eye' : 'pi pi-eye-slash' }}" pButton pRipple
-                  (click)="showPassword()" pTooltip="{{'login.password'}}" tooltipPosition="bottom"></button>
+                <input
+                  id="senha"
+                  type="{{ mostrarSenha ? 'text' : 'password' }}"
+                  pInputText
+                  formControlName="password"
+                  placeholder="Senha"
+                  required
+                  minlength="4"
+                  maxlength="30"
+                />
+                <button
+                  type="button"
+                  icon="{{ mostrarSenha ? 'pi pi-eye' : 'pi pi-eye-slash' }}"
+                  pButton
+                  pRipple
+                  (click)="showPassword()"
+
+                  tooltipPosition="bottom"
+                ></button>
               </div>
             </div>
-
           </div>
 
-          <p class="texto2">Copyright © {{year}} <strong> <u pTooltip="Tarefas" tooltipPosition="bottom">Tarefas</u>
-            </strong>. {{'login.copyright'}}</p>
+          <p class="texto2">
+            Copyright © {{ year }}
+            <strong>
+              <u pTooltip="Tarefas" tooltipPosition="bottom">Tarefas</u> </strong
+            >. Todos os direitos reservados
+          </p>
 
-          <br>
+          <br />
 
           <div class="center-text">
-            <button type="submit" pButton (click)="login()" label="{{'login.login'}}" [disabled]="!loginForm.valid"
-              pTooltip="{{'login.login'}}" tooltipPosition="bottom"></button>
+            <button
+              type="submit"
+              pButton
+              (click)="login()"
+              label="Entrar"
+              [disabled]="!loginForm.valid"
+              tooltipPosition="bottom"
+            ></button>
 
-            <button pButton type="submit" icon="pi pi-spin pi-spinner" label="{{'login.loading'}}"></button>
+            <!-- <button
+              pButton
+              type="submit"
+              icon="pi pi-spin pi-spinner"
+              label="{{ 'login.loading' }}"
+            ></button> -->
           </div>
         </div>
-
-
       </form>
-
     </div>
-
   </div>
 </div>
