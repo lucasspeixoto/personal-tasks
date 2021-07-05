@@ -1,16 +1,19 @@
-html, body {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+html,
+body {
+  font-family: "Roboto", sans-serif;
   max-width: 100%;
   overflow-x: hidden;
   margin: 0px;
-  color: #333333;
+  background: #f8f8f8;
+  color: #29292e;
 }
 
-:focus {
-  outline: none;
+body,
+input,
+button,
+textarea {
+  font: 400 16px 'Roboto', sans-serif
 }
-
-/* width */
 
 ::-webkit-scrollbar {
   width: 15px;
@@ -32,15 +35,28 @@ html, body {
   border: 1px solid #fff;
 }
 
-body .p-button {
-  color: #ffffff;
-  background-color: #006bd3;
-  border: 1px solid #006bd3;
-  border-radius: 5px;
-  font-size: 0.875rem;
-  padding: 0.4375rem 0.875rem;
+.user-account-question {
+  font-size: 14px;
+  color: #a8a8b3;
+
+  margin: 16px 0;
+  padding: 0 32px;
+
+  display: center;
+  justify-content: center;
+  align-items: center;
+
+
+  a {
+    color: #2443f0;
+    margin-left: 6px;
+    cursor: pointer;
+  }
+
 }
 
+
+/*
 body .btn-secondary {
   color: #fff;
   background-color: #8c313e;
@@ -238,3 +254,4 @@ textarea {
 .desabilitado {
   cursor: not-allowed;
 }
+ */

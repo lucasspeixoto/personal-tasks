@@ -4,13 +4,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from 'src/app/pages/login/login.component';
-import { HeaderComponent } from '../components/header/header.component';
+import { RegisterComponent } from 'src/app/pages/register/register.component';
+
 import { PrimeNgModule } from './primeng.module';
 
 @NgModule({
     declarations: [
         LoginComponent,
-        HeaderComponent
+        RegisterComponent,
     ],
     imports: [
         CommonModule,
@@ -24,6 +25,7 @@ import { PrimeNgModule } from './primeng.module';
     providers: [ ],
     exports: [
         LoginComponent,
+        RegisterComponent
     ]
 })
 export class SharedCommonModule { }

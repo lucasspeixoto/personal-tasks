@@ -15,13 +15,7 @@
         width="220"
         height="100"
       />
-      <button class="google-login">
-        <!-- <img src="assets/images/google-icon.svg" alt="Logo do Google" /> -->
-        <i class="pi pi-google"></i>
-        Faça login com o Google
-      </button>
-      <div class="separator">ou</div>
-      <form [formGroup]="loginForm">
+      <form [formGroup]="registerForm">
         <input
           type="text"
           placeholder="E-mail"
@@ -37,18 +31,26 @@
           minlength="4"
           maxlength="20"
         />
+        <input
+          type="text"
+          placeholder="Nome"
+          formControlName="name"
+          required
+          minlength="4"
+          maxlength="20"
+        />
         <button
           class="login"
+          [disabled]="!registerForm.valid"
           icon="pi-step-forward"
           type="submit"
-          [disabled]="!loginForm.valid"
         >
-          Login
+          Registrar
           <i class="pi pi-step-forward"></i>
         </button>
       </form>
-      <div class="user-account-question">
-        Não é registrado ainda? <a routerLink="/register">Clique aqui</a>
+      <div class="user-account-question" >
+        Ja possui uma conta? <a routerLink="/login">Clique aqui</a>
       </div>
     </div>
   </main>
