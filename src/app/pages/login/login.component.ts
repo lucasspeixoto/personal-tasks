@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private angularFireAuth: AngularFireAuth,
+    private router: Router
   ) { }
 
   ngOnInit(){
@@ -28,14 +32,22 @@ export class LoginComponent implements OnInit {
 
   loginFormMake() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      email: [null, Validators.required],
+      password: [null, Validators.required]
     })
   }
 
 
   login() {
-    alert('Login')
+    const { email, password } = this.loginForm.value
+    console.log(email)
+    this.angularFireAuth.signInWithEmailAndPassword(email, password)
+    .then((user => {
+      console.log(user.user)
+      this.router.navigate([''])
+    })).catch(error =>{
+      alert(error)
+    })
   }
 
   showPassword() {

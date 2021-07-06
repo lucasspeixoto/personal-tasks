@@ -19,13 +19,13 @@
         <input
           type="text"
           placeholder="E-mail"
-          formControlName="username"
+          formControlName="email"
           required
-          minlength="4"
-          maxlength="20"
+          minlength="13"
+
         />
         <input
-          type="text"
+          type="password"
           placeholder="Senha"
           formControlName="password"
           minlength="4"
@@ -37,16 +37,16 @@
           formControlName="name"
           required
           minlength="4"
-          maxlength="20"
         />
         <button
           class="login"
-          [disabled]="!registerForm.valid"
           icon="pi-step-forward"
           type="submit"
+          [disabled]="!registerForm.valid"
+          (click)="register()"
         >
           Registrar
-          <i class="pi pi-step-forward"></i>
+          <i class="pi pi-pencil"></i>
         </button>
       </form>
       <div class="user-account-question" >

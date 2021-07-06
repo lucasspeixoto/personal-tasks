@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -9,40 +12,46 @@ import { MessageService } from 'primeng/api';
 })
 export class RegisterComponent implements OnInit {
 
-   // formulário e elementos
-   registerForm: FormGroup;
-   year: number;
+  // formulário e elementos
+  registerForm: FormGroup;
+  year: number;
 
-   // Senha
-   mostrarSenha: boolean = false
+  // Senha
+  mostrarSenha: boolean = false
 
-   constructor(
-     private formBuilder: FormBuilder,
-     private messageService: MessageService
-   ) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private angularFireAuth: AngularFireAuth,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) { }
 
-   ngOnInit(){
-     this.registerFormMake()
-     let date = new Date()
-     this.year = date.getFullYear()
-   }
+  ngOnInit(): void {
+    this.registerFormMake()
+    let date = new Date()
+    this.year = date.getFullYear()
+  }
 
-   registerFormMake() {
-     this.registerForm = this.formBuilder.group({
-       username: ['', Validators.required],
-       password: ['', Validators.required],
-       name: ['', Validators.required]
-     })
-   }
+  registerFormMake() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      name: ['', Validators.required]
+    })
+  }
+
+  register() {
+    const { email, password } = this.registerForm.value
+    this.authenticationService.registerWithEmailAndPassword(email, password)
 
 
-   login() {
-     alert('Login')
-   }
+  }
 
-   showPassword() {
-     this.mostrarSenha = !this.mostrarSenha
-     console.log(this.registerForm)
-   }
 
- }
+
+  showPassword() {
+    this.mostrarSenha = !this.mostrarSenha
+    console.log(this.registerForm)
+  }
+
+}

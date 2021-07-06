@@ -37,7 +37,7 @@ $ npm start
 # ou
 $ yarn start
 
-# Abra http://localhost:3000 no seu navegador para ver a aplicação rodando!
+# Abra http://localhost:4200 no seu navegador para ver a aplicação rodando!
 ```
 
 ## 📝 Licença

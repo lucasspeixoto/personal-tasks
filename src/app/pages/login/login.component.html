@@ -16,7 +16,6 @@
         height="100"
       />
       <button class="google-login">
-        <!-- <img src="assets/images/google-icon.svg" alt="Logo do Google" /> -->
         <i class="pi pi-google"></i>
         Faça login com o Google
       </button>
@@ -25,23 +24,22 @@
         <input
           type="text"
           placeholder="E-mail"
-          formControlName="username"
+          formControlName="email"
           required
-          minlength="4"
-          maxlength="20"
+          minlength="13"
         />
         <input
-          type="text"
+          type="password"
           placeholder="Senha"
           formControlName="password"
           minlength="4"
-          maxlength="20"
         />
         <button
           class="login"
           icon="pi-step-forward"
           type="submit"
           [disabled]="!loginForm.valid"
+          (click)="login()"
         >
           Login
           <i class="pi pi-step-forward"></i>
