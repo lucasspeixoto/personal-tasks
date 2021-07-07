@@ -15,9 +15,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 @NgModule({
   declarations: [
     AppComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
 
 
   ],
@@ -45,7 +50,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedCommonModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

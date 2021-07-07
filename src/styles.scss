@@ -55,6 +55,56 @@ textarea {
 
 }
 
+.button {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: x-large;
+  background: #0e961a;
+  color: #fff;
+  padding: 0 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  border: 0;
+
+  transition: filter 0.2s;
+
+  i {
+    margin-left: 20px;
+    font-size: medium;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  &.outlined {
+    background: #fff;
+    border: 1px solid #0e961a;
+    color: #0e961a;
+  }
+
+}
+
+.button-effect {
+  &.outlined {
+    background: #fff;
+
+  }
+
+  &:not(:disabled):hover {
+    filter: brightness(0.9);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
 
 /*
 body .btn-secondary {

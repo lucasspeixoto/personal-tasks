@@ -15,11 +15,7 @@
         width="220"
         height="100"
       />
-      <button class="google-login">
-        <i class="pi pi-google"></i>
-        Faça login com o Google
-      </button>
-      <div class="separator">ou</div>
+
       <form [formGroup]="loginForm">
         <input
           type="text"
@@ -35,7 +31,7 @@
           minlength="4"
         />
         <button
-          class="login"
+          class="button button-effect"
           icon="pi-step-forward"
           type="submit"
           [disabled]="!loginForm.valid"
@@ -44,9 +40,18 @@
           Login
           <i class="pi pi-step-forward"></i>
         </button>
+        <div class="separator">ou</div>
+        <button class="google-login button-effect" (click)="authService.GoogleAuth()">
+          <i class="pi pi-google"></i>
+          Faça login com o Google
+        </button>
+
       </form>
       <div class="user-account-question">
         Não é registrado ainda? <a routerLink="/register">Clique aqui</a>
+      </div>
+      <div class="forgot-password">
+        <span routerLink="/forgot-password">Esqueceu a senha ?</span>
       </div>
     </div>
   </main>

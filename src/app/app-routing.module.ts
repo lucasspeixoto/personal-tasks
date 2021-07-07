@@ -9,25 +9,31 @@ import {
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
+import { AuthGuard } from './shared/guard/auth.guard';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const AppRoutes: Routes = [
-
+  { path: '', redirectTo: '/tasks', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: '',
+    path: 'tasks',
     component: TodoListComponent,
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }, //
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
+  { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent }
+
+  /*  {
+     path: '',
+     component: TodoListComponent,
+     canActivate: [AngularFireAuthGuard],
+     data: { authGuardPipe: redirectUnauthorizedToLogin }, //
+   } */
 ];
 
 @NgModule({

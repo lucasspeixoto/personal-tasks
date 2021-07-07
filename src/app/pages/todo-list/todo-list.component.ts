@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,19 +15,12 @@ export class TodoListComponent implements OnInit {
   constructor(
     private angularFireAuth: AngularFireAuth,
     private router: Router,
-    private authenticationService: AuthenticationService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
   }
 
-  logout() {
-    this.angularFireAuth.signOut().then((_) => this.router.navigate(['login']))
-  }
 
-  test() {
-    this.userData = this.authenticationService.getUserData()
-    console.log(this.userData)
-  }
 
 }
