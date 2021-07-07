@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 
 import { User } from '../shared/static/user';
 
+import { MessageService } from 'primeng/api';
+import { Summary, Detail } from '../shared/static/messages';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,15 +23,15 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private messageService: MessageService
   ) {
-    /* Saving user data in localstorage when
-    logged in and setting up null when logged out */
+    //Salvar as informações do usuário no localStorage
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify(this.userData)); //Passa informação
+        JSON.parse(localStorage.getItem('user')); //Recupera informação
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -36,7 +39,7 @@ export class AuthService {
     });
   }
 
-  // Sign in with email/password
+  // Logar com e-mail e senha
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
@@ -47,27 +50,35 @@ export class AuthService {
         this.SetUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.messageService.clear();
+        this.messageService.add({
+          severity: 'error',
+          summary: Summary[error.code],
+          detail: Detail[error.code],
+        });
       });
   }
 
-  // Sign up with email/password
+  // Registrar com e-mail e senha
   SignUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
-        console.log(result.user)
+        // Enviar e-mail de confirmação do cadastro
         this.SendVerificationMail();
         this.SetUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.messageService.clear();
+        this.messageService.add({
+          severity: 'error',
+          summary: Summary[error.code],
+          detail: Detail[error.code],
+        });
       });
   }
 
-  // Send email verfificaiton when new user sign up
+  // Envio do e-mail de confirmação quando usuário se cadastra
   async SendVerificationMail() {
     return await (await this.afAuth.currentUser)
       .sendEmailVerification()
@@ -76,35 +87,46 @@ export class AuthService {
       });
   }
 
-  // Reset Forggot password
+  // Alterar senha
   ForgotPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        this.messageService.clear();
+        this.messageService.add({
+          severity: 'info',
+          summary: 'E-mail enviado',
+          detail:
+            'O link para alteração foi enviado por e-mail, verificar caixa',
+        });
       })
       .catch((error) => {
-        window.alert(error);
+        this.messageService.clear();
+        this.messageService.add({
+          severity: 'error',
+          summary: Summary[error.code],
+          detail: Detail[error.code],
+        });
       });
   }
 
-  // Returns true when user is looged in and email is verified
+  // Retornar true quando usuário logado e verificado
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
-  // Sign in with Google
+  // Logar Com Google
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
-  // Sign in with Facebook
+  // Logar com Facebook
   FacebookAuth() {
     return this.AuthLogin(new firebase.auth.FacebookAuthProvider());
   }
 
-  // Auth logic to run auth providers
+  // Função para logar com autenticação (Google, Facebook, etc...)
   AuthLogin(provider) {
     return this.afAuth
       .signInWithPopup(provider)
@@ -113,18 +135,17 @@ export class AuthService {
           this.router.navigate(['tasks']);
         });
         this.SetUserData(result.user);
-
       })
       .catch((error) => {
         window.alert(error);
       });
   }
-
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+  /* Função para setar as informações do usuário quando logar (email e senha
+    ou com provider com Google/Facebook) */
   SetUserData(user: User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -137,7 +158,7 @@ export class AuthService {
     });
   }
 
-  // Sign out
+  // Deslogar
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');

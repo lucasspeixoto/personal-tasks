@@ -28,14 +28,7 @@ const AppRoutes: Routes = [
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent }
 
-  /*  {
-     path: '',
-     component: TodoListComponent,
-     canActivate: [AngularFireAuthGuard],
-     data: { authGuardPipe: redirectUnauthorizedToLogin }, //
-   } */
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(AppRoutes)],
   exports: [RouterModule],

@@ -19,16 +19,12 @@ textarea {
   width: 15px;
 }
 
-/* Handle */
-
 ::-webkit-scrollbar-thumb {
   color: #006bd3;
   background-color: #fff;
   border: 1px solid #006bd3;
   border-radius: 20px;
 }
-
-/* Handle on hover */
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #006bd3;
@@ -45,7 +41,6 @@ textarea {
   display: center;
   justify-content: center;
   align-items: center;
-
 
   a {
     color: #2443f0;
@@ -104,7 +99,6 @@ textarea {
     cursor: not-allowed;
   }
 }
-
 
 /*
 body .btn-secondary {
@@ -303,5 +297,5 @@ textarea {
 
 .desabilitado {
   cursor: not-allowed;
-}
- */
+} */
+

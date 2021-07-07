@@ -1,4 +1,24 @@
-export enum Mensagens {
+export const Summary = {
+
+  "auth/invalid-email": "E-mail inválido",
+  "auth/wrong-password": "Senha Incorreta",
+  "auth/user-not-found": "Usuário não cadastrado",
+  "auth/too-many-requests": "Usuário bloqueado",
+  "auth/email-already-in-use": "E-mail em uso"
+}
+
+export const Detail = {
+
+  "auth/invalid-email": "E-mail incorreto, verificar",
+  "auth/wrong-password": "Senha incorreta, digitar novamente",
+  "auth/user-not-found": "Verifique o e-mail ou se cadastre",
+  "auth/too-many-requests": "Resete a senha ou tente novamente mais tarde",
+  "auth/email-already-in-use": "Este e-mail já está em uso, caso não lembre a senha altere"
+}
+
+/*
+
+
   ConnectionErrorSummary = 'Erro de comunicação.',
   ConnectionErrorDetail = 'Não foi possível contactar o servidor. Tente novamente em instantes.',
 
@@ -30,4 +50,4 @@ export enum Mensagens {
 
   AtencaoSummary = 'Atenção.',
   ItemCadastroErrorDetail = 'Item já adicionado',
-}
+*/

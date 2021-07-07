@@ -21,6 +21,8 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  add() {
+    alert('Add')
+  }
 
 }
