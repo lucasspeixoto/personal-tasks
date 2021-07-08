@@ -1,52 +1,91 @@
-<!-- Show user data when logged in -->
-<!--
-<div class="row" *ngIf="authService.userData as user">
-  <div class="col-md-12">
-    <div class="media">
-      <img
-        class="align-self-start mr-5 img-thumbnail rounded-circle"
-        src="{{ user.photoURL ? user.photoURL : '/assets/images/dummy-user.png' }}"
-        alt="{{ user.displayName }}"
-      />
-      <div class="media-body">
-        <h1>
-          Hello:
-          <strong>{{ user.displayName ? user.displayName : "User" }}</strong>
-        </h1>
-        <p>
-          User ID: <strong>{{ user.uid }}</strong>
-        </p>
-        <p>
-          Email: <strong>{{ user.email }}</strong>
-        </p>
-        <p>
-          Email Verified: <strong>{{ user.emailVerified }}</strong>
-        </p>
-        <p-button (click)="authService.SignOut()">Sair</p-button>
+<p-header>
+  <app-header></app-header>
+</p-header>
+<div class="background">
+
+  <div class="container">
+    <p-toast></p-toast>
+
+    <h1 class="margin-0">Agendador de Tarefas</h1>
+    <p>Listagem</p>
+
+    <p-tabView>
+
+      <!-- <div style="padding: 13%; text-align: center;" *ngIf="!itens">
+        <p-progressSpinner></p-progressSpinner>
+      </div> -->
+
+      <div class="p-col-12" >
+        <div style="text-align: center;">
+          <h2 class="notfound">Erro
+          </h2>
+          <button type="text" pButton label="Atualizar"
+            pTooltip="Atualicar" tooltipPosition="bottom"
+            style="border: 1px solid white;"></button>
+        </div>
       </div>
-    </div>
+
+      <p-tabPanel header="Tarefas">
+        <p-table #dt [value]="products" [paginator]="true" [rows]="10" selectionMode="single"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Total de: {totalRecords}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="content-column" *ngFor="let col of cols" [pSortableColumn]="col.field"
+                [ngStyle]="{'width': col.width}">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+
+              <th style="width: 15%;" class="content-column">
+                <h1 style="text-align: center; margin: 0;">
+                  <button type="button" pButton icon="pi pi-plus" iconPos="left"
+                    label="{{'empresa.add-button' | transloco}}" (click)="getAdicionar()"
+                    pTooltip="{{'empresa.add-label' | transloco}}" tooltipPosition="bottom">
+                  </button>
+                </h1>
+              </th>
+            </tr>
+            <tr>
+              <th class="content-column" *ngFor="let col of cols">
+                <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'startsWith')"
+                  placeholder="{{col.header}}" class="p-column-filter">
+              </th>
+
+              <th style="width: 15%;" class="content-column"></th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item>
+            <tr [pEditableRow]="rowData">
+              <td *ngFor="let col of cols" [ngStyle]="{'text-align': col.align}" (click)="selectItem(item)"
+                style="cursor: pointer">
+                {{item[col.field]?.nome ? item[col.field]?.nome : item[col.field] | titlecase}}
+              </td>
+
+              <td style="text-align:center">
+                <button style="height: 35px;" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="getEditar($event, item)" pTooltip="{{'empresa.edit-label' | transloco}}"
+                  tooltipPosition="bottom"></button>
+
+                <button style="height: 35px; margin-left: 10px;" class="btn-secondary" pButton type="button"
+                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)"
+                  pTooltip="{{'empresa.delete-label' | transloco}}" tooltipPosition="bottom"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <h1 style="font-size: 20px; margin-left: 15px;">
+              <i class="pi pi-exclamation-triangle"></i>
+              {{'empresa.no-item' | transloco}}
+            </h1>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+
+      <!-- <app-task-manager (eventOutput)="getTableInfo()"></app-task-manager> -->
+
+    </p-tabView>
+
   </div>
-</div>
- -->
-
-<div class="background" *ngIf="authService.userData as user">
-  <h1 class="texto">Tarefas '{{ user.displayName }}'</h1>
-  <div class="ui-g">
-    <div class="ui-g-12">
-      <button pButton label="Adicionar" type="button" icon="pi pi-plus" class="add-button" (click)="add()"
-        pTooltip="Adicionar Tarefa" tooltipPosition="bottom"></button>
-    </div>
-
-    <p-table #dt [value]="tasks" [paginator]="true" [rows]="10">
-      <tr>
-        <th class="content-column" *ngFor="let col of ['Tarefa', 'Horário']">
-          {{col}}
-          <p-sortIcon [field]="col"></p-sortIcon>
-        </th>
-        <th style="width: 15%;" class="content-column"></th>
-      </tr>
-    </p-table>
-
-  </div>
-  <p-button (click)="authService.SignOut()">Sair</p-button>
 </div>

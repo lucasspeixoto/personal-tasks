@@ -8,10 +8,10 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
-import { User } from '../shared/static/user';
+import { User } from '../static/user';
 
 import { MessageService } from 'primeng/api';
-import { Summary, Detail } from '../shared/static/messages';
+import { Summary, Detail } from '../static/messages';
 
 @Injectable({
   providedIn: 'root',

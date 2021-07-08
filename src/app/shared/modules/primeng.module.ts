@@ -28,7 +28,11 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { CalendarModule } from 'primeng/calendar';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ToolbarModule} from 'primeng/toolbar';
 @NgModule({
   declarations: [],
   imports: [
@@ -60,6 +64,11 @@ import { TooltipModule } from 'primeng/tooltip';
     MultiSelectModule,
     ChipsModule,
     DropdownModule,
+    CalendarModule,
+    ContextMenuModule,
+    ProgressBarModule,
+    ConfirmDialogModule,
+    ToolbarModule
   ],
   exports: [
     ProgressSpinnerModule,
@@ -90,7 +99,12 @@ import { TooltipModule } from 'primeng/tooltip';
     MultiSelectModule,
     ChipsModule,
     DropdownModule,
+    CalendarModule,
+    ContextMenuModule,
+    ProgressBarModule,
+    ConfirmDialogModule,
+    ToolbarModule
   ],
   providers: [MessageService],
 })
-export class PrimeNgModule {}
+export class PrimeNgModule { }

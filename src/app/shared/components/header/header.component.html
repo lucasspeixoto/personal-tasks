@@ -1,0 +1,28 @@
+<div class="p-col-12 header" *ngIf="authService.userData as user">
+  <div class="p-grid">
+    <div class="p-col-3">
+      <p class="usertitle">
+        Olá <b>{{ user.displayName }}</b>
+      </p>
+    </div>
+    <div class="p-col-6">
+      <h2 class="texto">
+        <img class="header-img" src="../assets/images/calendar.ico" />
+      </h2>
+    </div>
+    <div class="p-col-3">
+      <div style="text-align: end; margin: 2% 0%">
+        <button
+          pButton
+          class="btn-sair"
+          type="button"
+          icon="pi pi-sign-out"
+          iconPos="left"
+          (click)="logOut()"
+          pTooltip="Sair"
+          tooltipPosition="bottom"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

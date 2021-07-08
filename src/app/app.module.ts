@@ -11,21 +11,14 @@ import { environment } from '../environments/environment';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database'
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { AuthService } from './shared/services/auth.service';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    VerifyEmailComponent,
-    ForgotPasswordComponent,
-
-
-  ],
+  declarations: [AppComponent],
   imports: [
     // Browser
     BrowserModule,
@@ -47,10 +40,11 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     // PrimeNg
     PrimeNgModule,
 
+    // Modules
     SharedCommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

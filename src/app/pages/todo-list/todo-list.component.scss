@@ -1,80 +1,12 @@
 .background {
-  border-radius: 10px;
-  text-align: left;
-
-  padding: 2%;
+  color: #0b1641;
 }
 
-.texto {
-  margin: 0;
-  padding: 0;
+.container {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-left: 10%;
+  padding-right: 10%;
   text-align: center;
-}
-
-.delete > i {
-  color: #e35e6b;
-}
-.edit > i {
-  color: #d9cd26;
-}
-
-.ok {
-  color: green;
-  font-weight: bold;
-}
-
-.nok {
-  color: red;
-  font-weight: bold;
-}
-
-.lucas {
-  font-weight: bold;
-  color: #256db1;
-}
-
-.liana {
-  font-weight: bold;
-  color: #e35e6b;
-}
-
-::ng-deep th.mat-header-cell,
-td.mat-cell,
-td.mat-footer-cell {
-  font-size: 1 rem;
-}
-
-::ng-deep th.mat-header-cell {
-  font-weight: bold;
-  text-transform: capitalize;
-  color: black;
-}
-
-h1 {
-  color: #013566;
-  font-size: 40px;
-  margin-top: 10px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.add-button {
-  background-color: #013566;
-  color: #fff;
-  margin-top: 10px;
-  text-align: center;
-}
-
-.refresh-button {
-  background-color: #000;
-  color: #fff;
-  margin-top: 10px;
-  text-align: center;
-}
-
-::ng-deep .custom-style {
-  text-align: left !important;
-  background: linear-gradient(116.82deg, #013566 35.47%, #19693d 53.33%, #013566 100%) !important;
-  color: #fff;
-
+  min-height: 90vh;
 }
