@@ -2,7 +2,7 @@
   <div class="p-grid">
     <div class="p-col-3">
       <p class="usertitle">
-        Olá <b>{{ user.displayName }}</b>
+        Olá <b>{{ (user.displayName) ? user.displayName : 'Usuário' }}</b>
       </p>
     </div>
     <div class="p-col-6">

@@ -5,14 +5,15 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProductService } from 'src/app/shared/services/productservice';
 import { Product } from 'src/app/shared/static/product';
-
+import { Task } from 'src/app/shared/static/task';
+import { TaskService } from './../../shared/services/tasks.service';
+import { Summary, Detail } from './../../shared/static/messages';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-
 
   productDialog: boolean;
 
@@ -24,101 +25,72 @@ export class TodoListComponent implements OnInit {
 
   submitted: boolean;
 
+
+  // Tarefas
+  tasks: Task[];
+  // Usuário
+  userData: any;
+  // Colunas da tabela
+  cols: any[];
+  // Modelo
+  itens: any[];
+  // Controle de erro
+  isError: boolean;
+
   constructor(
     private productService: ProductService,
+    private taskService: TaskService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private angularFireAuth: AngularFireAuth,
     private router: Router,
     public authService: AuthService
 
-    ) { }
+  ) {
+    this.userData = JSON.parse(localStorage.getItem('user'));
+  }
 
   ngOnInit() {
-      this.productService.getProducts().then(data => this.products = data);
+    this.getTasksInfo()
+    this.setTable()
   }
 
-  openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
-  }
-
-  deleteSelectedProducts() {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete the selected products?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-              this.selectedProducts = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+  // Função para obter tarefas do banco
+  getTasksInfo() {
+    this.taskService.getAll()
+      .subscribe(
+        (task) => {
+          if (task === undefined) {
+            this.itens = [];
+          } else {
+            this.itens = task;
+            this.isError = false;
           }
-      });
+        }, error => {
+          this.isError = true;
+          this.messageService.clear();
+          this.messageService.add({
+            severity: 'error',
+            summary: Summary[error.code],
+            detail: Detail[error.code]
+          });
+        }
+      );
   }
 
-  editProduct(product: Product) {
-      this.product = {...product};
-      this.productDialog = true;
+  // Função que define os parâmetros para a criação da tabela
+  setTable() {
+    this.cols = [
+      { field: 'task', header: 'Tarefa', width: '20%', align: 'left' },
+      { field: 'time', header: 'Horário', width: '10%', align: 'left' },
+      { field: 'category', header: 'Categoria', width: '20%', align: 'left' },
+      { field: 'status', header: 'Situação', width: '20%', align: 'left' },
+     /*  { field: 'owner', header: 'Dono', width: '20%', align: 'left' }, */
+
+    ];
   }
 
-  deleteProduct(product: Product) {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + product.name + '?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.products = this.products.filter(val => val.id !== product.id);
-              this.product = {};
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-          }
-      });
-  }
 
-  hideDialog() {
-      this.productDialog = false;
-      this.submitted = false;
-  }
 
-  saveProduct() {
-      this.submitted = true;
 
-      if (this.product.name.trim()) {
-          if (this.product.id) {
-              this.products[this.findIndexById(this.product.id)] = this.product;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-          }
-          else {
-              this.product.id = this.createId();
-              this.product.image = 'product-placeholder.svg';
-              this.products.push(this.product);
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-          }
-
-          this.products = [...this.products];
-          this.productDialog = false;
-          this.product = {};
-      }
-  }
-
-  findIndexById(id: string): number {
-      let index = -1;
-      for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === id) {
-              index = i;
-              break;
-          }
-      }
-
-      return index;
-  }
-
-  createId(): string {
-      let id = '';
-      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for ( var i = 0; i < 5; i++ ) {
-          id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-  }
 }

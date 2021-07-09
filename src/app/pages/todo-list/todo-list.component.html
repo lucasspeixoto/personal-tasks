@@ -6,42 +6,43 @@
   <div class="container">
     <p-toast></p-toast>
 
-    <h1 class="margin-0">Agendador de Tarefas</h1>
-    <p>Listagem</p>
-
+    <h1 class="margin-0">Tarefas</h1>
+    <!-- <p-button (click)="setTable()">Teste</p-button> -->
     <p-tabView>
-
-      <!-- <div style="padding: 13%; text-align: center;" *ngIf="!itens">
+      <!-- Barra de loading -->
+      <div style="padding: 13%; text-align: center;" *ngIf="!itens">
         <p-progressSpinner></p-progressSpinner>
-      </div> -->
+      </div>
 
-      <div class="p-col-12" >
+      <!-- Mensagem de erro ao carregar dados das empresas -->
+      <div class="p-col-12" *ngIf="isError">
         <div style="text-align: center;">
           <h2 class="notfound">Erro
           </h2>
-          <button type="text" pButton label="Atualizar"
-            pTooltip="Atualicar" tooltipPosition="bottom"
-            style="border: 1px solid white;"></button>
+          <button type="text" pButton label="Atualizar" pTooltip="Atualizar" tooltipPosition="bottom"
+            (click)="getTasksInfo()" style="border: 1px solid white;"></button>
         </div>
       </div>
 
-      <p-tabPanel header="Tarefas">
-        <p-table #dt [value]="products" [paginator]="true" [rows]="10" selectionMode="single"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Total de: {totalRecords}">
+        <!-- Painel Contendo tabela -->
+      <p-tabPanel header="Tarefas" *ngIf="itens">
+
+        <!-- Tabela -->
+        <p-table #dt [value]="itens" [paginator]="true" [rows]="10" selectionMode="single"
+          [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
           <ng-template pTemplate="header">
+            <!-- Campo de input dos filtros -->
             <tr>
               <th class="content-column" *ngFor="let col of cols" [pSortableColumn]="col.field"
                 [ngStyle]="{'width': col.width}">
                 {{col.header}}
-                <p-sortIcon [field]="col.field"></p-sortIcon>
+                <p-sortIcon [field]="col.field" ></p-sortIcon>
               </th>
 
               <th style="width: 15%;" class="content-column">
                 <h1 style="text-align: center; margin: 0;">
-                  <button type="button" pButton icon="pi pi-plus" iconPos="left"
-                    label="{{'empresa.add-button' | transloco}}" (click)="getAdicionar()"
-                    pTooltip="{{'empresa.add-label' | transloco}}" tooltipPosition="bottom">
+                  <button type="button" pButton icon="pi pi-plus" iconPos="left" label="add" (click)="getAdicionar()"
+                    pTooltip="add" tooltipPosition="bottom">
                   </button>
                 </h1>
               </th>
@@ -65,19 +66,18 @@
 
               <td style="text-align:center">
                 <button style="height: 35px;" pButton type="button" pInitEditableRow icon="pi pi-pencil"
-                  (click)="getEditar($event, item)" pTooltip="{{'empresa.edit-label' | transloco}}"
-                  tooltipPosition="bottom"></button>
+                  (click)="getEditar($event, item)" pTooltip="edit" tooltipPosition="bottom"></button>
 
                 <button style="height: 35px; margin-left: 10px;" class="btn-secondary" pButton type="button"
-                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)"
-                  pTooltip="{{'empresa.delete-label' | transloco}}" tooltipPosition="bottom"></button>
+                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)" pTooltip="del"
+                  tooltipPosition="bottom"></button>
               </td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
             <h1 style="font-size: 20px; margin-left: 15px;">
               <i class="pi pi-exclamation-triangle"></i>
-              {{'empresa.no-item' | transloco}}
+              no-item
             </h1>
           </ng-template>
         </p-table>

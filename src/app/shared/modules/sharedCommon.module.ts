@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ForgotPasswordComponent } from 'src/app/components/forgot-password/forgot-password.component';
-import { HeaderComponent } from 'src/app/shared/components/header/header.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 import { VerifyEmailComponent } from 'src/app/components/verify-email/verify-email.component';
 
 import { LoginComponent } from 'src/app/pages/login/login.component';

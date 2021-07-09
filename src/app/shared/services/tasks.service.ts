@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import { EMPTY, Observable } from 'rxjs';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  private readonly API = `http://localhost:3001/tasks`
+  userData: any
 
   constructor(
-    private http: HttpClient,
-    private db: AngularFireDatabase
-  ) { }
+    private db: AngularFireDatabase,
+    public authService: AuthService
+  ) {
+    this.userData = JSON.parse(localStorage.getItem('user'));
+  }
 
   // Leitura das Tarefas
   getAll() {
-    return this.db.list('/tasks').valueChanges()
+    return this.db.list(`/tasks`).valueChanges()
+      .pipe(
+        map(obj =>
+          obj.filter(obj => obj['userid'] === this.userData.uid))
+      )
   }
 
   // Adição de tarefa
