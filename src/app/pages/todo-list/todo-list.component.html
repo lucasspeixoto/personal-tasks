@@ -31,6 +31,7 @@
         <p-table #dt [value]="itens" [paginator]="true" [rows]="10" selectionMode="single"
           [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
           <ng-template pTemplate="header">
+
             <!-- Campo de input dos filtros -->
             <tr>
               <th class="content-column" *ngFor="let col of cols" [pSortableColumn]="col.field"
@@ -39,10 +40,15 @@
                 <p-sortIcon [field]="col.field" ></p-sortIcon>
               </th>
 
+              <!-- Campos de ordenação dos filtros -->
               <th style="width: 15%;" class="content-column">
                 <h1 style="text-align: center; margin: 0;">
-                  <button type="button" pButton icon="pi pi-plus" iconPos="left" label="add" (click)="getAdicionar()"
+                  <button type="button" pButton icon="pi pi-plus" iconPos="left" (click)="getAdicionar()"
                     pTooltip="add" tooltipPosition="bottom">
+                  </button>
+                  {{ ' '}}
+                  <button type="button" pButton icon="pi pi-refresh" class="refresh" iconPos="left" (click)="getTasksInfo()"
+                    pTooltip="Adicionar" tooltipPosition="bottom">
                   </button>
                 </h1>
               </th>
@@ -65,11 +71,11 @@
               </td>
 
               <td style="text-align:center">
-                <button style="height: 35px;" pButton type="button" pInitEditableRow icon="pi pi-pencil"
-                  (click)="getEditar($event, item)" pTooltip="edit" tooltipPosition="bottom"></button>
+                <button class="edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="getEditar($event, item)" pTooltip="Editar" tooltipPosition="bottom"></button>
 
-                <button style="height: 35px; margin-left: 10px;" class="btn-secondary" pButton type="button"
-                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)" pTooltip="del"
+                <button class="delete" pButton type="button"
+                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)" pTooltip="Excluir"
                   tooltipPosition="bottom"></button>
               </td>
             </tr>
