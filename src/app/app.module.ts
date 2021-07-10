@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/services/auth.service';
+import { ParametersService } from './shared/services/parameters.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,7 +45,7 @@ import { AuthService } from './shared/services/auth.service';
     SharedCommonModule,
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, ParametersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

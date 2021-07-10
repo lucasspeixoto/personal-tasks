@@ -1,97 +1,97 @@
 <p-header>
   <app-header></app-header>
 </p-header>
-<div class="background">
-
+<div class="background" *ngIf="authService.userData as user">
   <div class="container">
     <p-toast></p-toast>
 
     <h1 class="margin-0">Tarefas</h1>
-    <!-- <p-button (click)="setTable()">Teste</p-button> -->
     <p-tabView>
       <!-- Barra de loading -->
-      <div style="padding: 13%; text-align: center;" *ngIf="!itens">
+      <div style="padding: 13%; text-align: center" *ngIf="!itens">
         <p-progressSpinner></p-progressSpinner>
       </div>
 
       <!-- Mensagem de erro ao carregar dados das empresas -->
       <div class="p-col-12" *ngIf="isError">
-        <div style="text-align: center;">
-          <h2 class="notfound">Erro
-          </h2>
+        <div style="text-align: center">
+          <h2 class="notfound">Erro</h2>
           <button type="text" pButton label="Atualizar" pTooltip="Atualizar" tooltipPosition="bottom"
-            (click)="getTasksInfo()" style="border: 1px solid white;"></button>
+            (click)="getTasksInfo()" style="border: 1px solid white"></button>
         </div>
       </div>
 
-        <!-- Painel Contendo tabela -->
+      <!-- Painel Contendo tabela -->
       <p-tabPanel header="Tarefas" *ngIf="itens">
-
         <!-- Tabela -->
         <p-table #dt [value]="itens" [paginator]="true" [rows]="10" selectionMode="single"
           [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
-          <ng-template pTemplate="header">
-
+          <ng-template pTemplate="header" *ngIf="showDetail">
             <!-- Campo de input dos filtros -->
             <tr>
               <th class="content-column" *ngFor="let col of cols" [pSortableColumn]="col.field"
-                [ngStyle]="{'width': col.width}">
-                {{col.header}}
-                <p-sortIcon [field]="col.field" ></p-sortIcon>
+                [ngStyle]="{ width: col.width }">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
               </th>
 
               <!-- Campos de ordenação dos filtros -->
-              <th style="width: 15%;" class="content-column">
-                <h1 style="text-align: center; margin: 0;">
-                  <button type="button" pButton icon="pi pi-plus" iconPos="left" (click)="getAdicionar()"
-                    pTooltip="add" tooltipPosition="bottom">
-                  </button>
-                  {{ ' '}}
-                  <button type="button" pButton icon="pi pi-refresh" class="refresh" iconPos="left" (click)="getTasksInfo()"
-                    pTooltip="Adicionar" tooltipPosition="bottom">
-                  </button>
+              <th style="width: 15%" class="content-column">
+                <h1 style="text-align: center; margin: 0">
+                  <button type="button" pButton icon="pi pi-plus" iconPos="left" (click)="getAddTask()" pTooltip="Adicionar"
+                    tooltipPosition="bottom"></button>
                 </h1>
               </th>
+
             </tr>
+
             <tr>
               <th class="content-column" *ngFor="let col of cols">
-                <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'startsWith')"
-                  placeholder="{{col.header}}" class="p-column-filter">
+                <input pInputText type="text" (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  " placeholder="{{ col.header }}" class="p-column-filter" />
               </th>
 
-              <th style="width: 15%;" class="content-column"></th>
+              <th style="width: 15%" class="content-column"></th>
             </tr>
           </ng-template>
 
           <ng-template pTemplate="body" let-item>
             <tr [pEditableRow]="rowData">
-              <td *ngFor="let col of cols" [ngStyle]="{'text-align': col.align}" (click)="selectItem(item)"
-                style="cursor: pointer">
-                {{item[col.field]?.nome ? item[col.field]?.nome : item[col.field] | titlecase}}
+              <td *ngFor="let col of cols" [ngStyle]="{ 'text-align': col.align }" (click)="selectItem(item)"
+                style="cursor: pointer"
+                [ngClass]="{
+                  ok: item[col.field] === 'Feito',
+                  nok: item[col.field] === 'Pendente',
+                  start: item[col.field] === 'Em andamento'}"
+                  >
+                {{
+                item[col.field]?.nome
+                ? item[col.field]?.nome
+                : (item[col.field] | titlecase)
+                }}
+
               </td>
 
-              <td style="text-align:center">
+              <td style="text-align: center">
                 <button class="edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
                   (click)="getEditar($event, item)" pTooltip="Editar" tooltipPosition="bottom"></button>
 
-                <button class="delete" pButton type="button"
-                  pInitEditableRow icon="pi pi-trash" (click)="getExcluir($event, item)" pTooltip="Excluir"
-                  tooltipPosition="bottom"></button>
+                <button class="delete" pButton type="button" pInitEditableRow icon="pi pi-trash"
+                  (click)="getExcluir($event, item)" pTooltip="Excluir" tooltipPosition="bottom"></button>
               </td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
-            <h1 style="font-size: 20px; margin-left: 15px;">
+            <h1 style="font-size: 20px; margin-left: 15px">
               <i class="pi pi-exclamation-triangle"></i>
-              no-item
+              Nenhuma tarefa
             </h1>
           </ng-template>
         </p-table>
       </p-tabPanel>
 
-      <!-- <app-task-manager (eventOutput)="getTableInfo()"></app-task-manager> -->
-
+      <app-task-manager (eventOutput)="getTasksInfo()"></app-task-manager>
     </p-tabView>
-
   </div>
 </div>

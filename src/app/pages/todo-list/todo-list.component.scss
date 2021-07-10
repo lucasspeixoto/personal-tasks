@@ -32,7 +32,7 @@
   border-radius: 5px;
   font-size: 0.875rem;
   padding: 0.4375rem 0.875rem;
-  height: 35px;
+
 }
 .edit:enabled:hover {
   background-color: #fff;
@@ -50,10 +50,26 @@
   border-radius: 5px;
   font-size: 0.875rem;
   padding: 0.4375rem 0.875rem;
-  height: 35px;
+
 }
 .delete:enabled:hover {
   background-color: #fff;
   color: #b91313;
   border: 1px solid #b91313
+}
+
+/* Estilização da situação */
+.ok {
+  color: green;
+  font-weight: bold;
+}
+
+.nok {
+  color: red;
+  font-weight: bold;
+}
+
+.start {
+  color: #f5d000;
+  font-weight: bold;
 }

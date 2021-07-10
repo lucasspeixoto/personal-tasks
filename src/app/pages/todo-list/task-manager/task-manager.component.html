@@ -1,1 +1,80 @@
-<p>task-manager works!</p>
+<div class="text-left" *ngIf="authService.userData as user">
+  <!-- Dialog de Adição e Edição da Item -->
+  <p-dialog header="Adicionar Tarefa" [(visible)]="displayAdicionar" [modal]="true" [style]="{ width: '37vw' }"
+    [baseZIndex]="10000" [formGroup]="cadastroForm">
+    <!-- Formulário -->
+    <div class="p-fluid">
+      <!-- Nome -->
+      <div class="p-field">
+        <label for="task">Tarefa</label>
+        <input id="task" type="text" pInputText formControlName="task" minlength="2" placeholder="Tarefa" required />
+      </div>
+      <!-- Horário -->
+      <div class="p-field">
+        <label for="time">Horário</label>
+        <p-calendar id="time" type="text" hourFormat="24" formControlName="time" placeholder="Horário" required timeOnly="true"></p-calendar>
+      </div>
+      <!-- Categoria -->
+      <div class="p-field">
+        <label for="category">Categoria</label>
+        <p-dropdown [options]="categories" formControlName="category" editable="false"></p-dropdown>
+      </div>
+      <!-- Situação -->
+      <div class="p-field">
+        <label for="status">Situação</label>
+        <p-dropdown [options]="status" formControlName="status" editable="false"></p-dropdown>
+      </div>
+      <!-- Descrição -->
+      <div class="p-field">
+        <label for="description">Descrição</label>
+        <textarea rows="7" pInputText cols="37" pInputTextarea formControlName="description" autoResize="autoResize"></textarea>
+      </div>
+    </div>
+    <div class="p-field">
+      <button pButton class="btn-secondary margin-10" type="button"
+      label="Cancelar" icon="pi pi-times" (click)="cancel()"
+      pTooltip="Cancelar" tooltipPosition="bottom"></button>
+      <button pButton type="button" label="Salvar" icon="pi pi-check"
+      (click)="save()" [disabled]="!cadastroForm.valid" *ngIf="!isEditar && !isLoadingButton"
+      pTooltip="Salvar" tooltipPosition="bottom"></button>
+
+    </div>
+    <b>{{ cadastroForm.value | json }}</b>
+    <!-- <div class="p-col-12">
+      <div class="flex-display-cols">
+        <div class="p-col-12">
+          <div class="text-end">
+            <button pButton class="btn-secondary margin-10" type="button"
+              label="{{'empresa.cancel-button' | transloco}}" icon="pi pi-times" (click)="cancelar()"
+              pTooltip="{{'empresa.cancel-button' | transloco}}" tooltipPosition="bottom"></button>
+            <button pButton type="button" label="{{'cadastro.start-process' | transloco}}" icon="pi pi-check"
+              (click)="salvar()" [disabled]="!cadastroForm.valid" *ngIf="!isEditar && !isLoadingButton"
+              pTooltip="{{'cadastro.start-process' | transloco}}" tooltipPosition="bottom"></button>
+            <button pButton type="button" label="{{'cadastro.edit-process' | transloco}}" icon="pi pi-check"
+              (click)="editar()" [disabled]="!cadastroForm.valid" *ngIf="isEditar && !isLoadingButton"
+              pTooltip="{{'cadastro.edit-process' | transloco}}" tooltipPosition="bottom"></button>
+            <button pButton type="button" icon="pi pi-spin pi-spinner" *ngIf="isLoadingButton"></button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </p-dialog>
+  <!-- Dialog de Exclusão do Item -->
+  <!-- <p-dialog header="{{'empresa.easy-hunting' | transloco}}" [(visible)]="displayExcluir" [modal]="true"
+    [style]="{width: '30vw'}" [baseZIndex]="10000">
+    <p class="margin-0">{{'empresa.delete-label-alert' | transloco}} - <b>{{itemNome}}</b></p>
+    <div class="p-col-12">
+      <div class="flex-display-cols">
+        <div class="p-col-12">
+          <div class="text-end">
+            <button pButton class="btn-secondary margin-10" type="button"
+              label="{{'empresa.cancel-button' | transloco}}" icon="pi pi-times" (click)="cancelarExcluir()"
+              pTooltip="{{'empresa.cancel-button' | transloco}}" tooltipPosition="bottom"></button>
+            <button pButton type="button" label="{{'empresa.delete-label' | transloco}}" icon="pi pi-check"
+              (click)="excluir()" pTooltip="{{'empresa.delete-label' | transloco}}" tooltipPosition="bottom"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog> -->
+</div>

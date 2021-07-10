@@ -2,10 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import firebase from 'firebase/app';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 import { User } from '../static/user';
@@ -137,7 +134,12 @@ export class AuthService {
         this.SetUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        this.messageService.clear();
+        this.messageService.add({
+          severity: 'error',
+          summary: Summary[error.code],
+          detail: Detail[error.code],
+        });
       });
   }
   /* Função para setar as informações do usuário quando logar (email e senha

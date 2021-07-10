@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 })
 export class TaskService {
 
-  userData: any
+  userData: any;
 
   constructor(
     private db: AngularFireDatabase,

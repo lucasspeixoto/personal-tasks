@@ -308,7 +308,7 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 4px 8px;
-  font-size: small;
+  font-size: large;
 }
 
 tr:nth-child(even) {
@@ -317,6 +317,9 @@ tr:nth-child(even) {
 
 textarea {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: large;
+  width: 30vw;
+
 }
 
 .ui-tooltip .ui-tooltip-text {
