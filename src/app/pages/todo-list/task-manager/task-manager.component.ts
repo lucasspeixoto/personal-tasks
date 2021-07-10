@@ -39,12 +39,13 @@ export class TaskManagerComponent implements OnInit {
     private messageService: MessageService,
     public parametersService: ParametersService,
     private tasksService: TaskService,
-    public authService: AuthService
+
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit() {
+    console.log('Iniciando task-manager')
     this.formComponent();
     this.getDropListInfos();
   }

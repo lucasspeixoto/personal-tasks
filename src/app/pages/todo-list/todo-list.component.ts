@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
 import { Task } from 'src/app/shared/static/task';
@@ -9,11 +10,9 @@ import { TaskManagerComponent } from './task-manager/task-manager.component';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
-
-
   // Tarefas
   tasks: Task[];
 
@@ -31,7 +30,7 @@ export class TodoListComponent implements OnInit {
   showDetail: boolean = true;
 
   //Variáves do formulários
-  categories: any
+  categories: any;
 
   @ViewChild(TaskManagerComponent) componetChild;
 
@@ -40,20 +39,27 @@ export class TodoListComponent implements OnInit {
     private messageService: MessageService,
     public authService: AuthService,
     public parametersService: ParametersService
-
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit() {
-    this.getTasksInfo()
-    this.setTable()
+    console.log('Iniciando todo-list');
+    this.getTasksInfo();
+    this.setTable();
   }
-
 
   // Função para obter tarefas do banco
   getTasksInfo() {
-    this.taskService.getAll()
+    this.taskService
+      .getAll()
+      .pipe(
+        map((obj) =>
+          obj.filter((obj) =>
+            obj['userid'] === this.userData.uid
+          )
+        )
+      )
       .subscribe(
         (task) => {
           if (task === undefined) {
@@ -62,13 +68,14 @@ export class TodoListComponent implements OnInit {
             this.itens = task;
             this.isError = false;
           }
-        }, error => {
+        },
+        (error) => {
           this.isError = true;
           this.messageService.clear();
           this.messageService.add({
             severity: 'error',
             summary: Summary[error.code],
-            detail: Detail[error.code]
+            detail: Detail[error.code],
           });
         }
       );
@@ -82,7 +89,6 @@ export class TodoListComponent implements OnInit {
       { field: 'category', header: 'Categoria', width: '20%', align: 'left' },
       { field: 'status', header: 'Situação', width: '20%', align: 'left' },
       /*  { field: 'owner', header: 'Dono', width: '20%', align: 'left' }, */
-
     ];
   }
 
@@ -90,6 +96,4 @@ export class TodoListComponent implements OnInit {
   getAddTask() {
     this.componetChild.setFormAdd();
   }
-
-
 }

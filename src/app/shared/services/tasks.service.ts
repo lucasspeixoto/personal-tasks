@@ -22,10 +22,10 @@ export class TaskService {
   // Leitura das Tarefas
   getAll() {
     return this.db.list(`/tasks`).valueChanges()
-      .pipe(
+     /*  .pipe(
         map(obj =>
           obj.filter(obj => obj['userid'] === this.userData.uid))
-      )
+      ) */
   }
 
   // Adição de tarefa
