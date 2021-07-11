@@ -18,14 +18,18 @@ export class TaskManagerComponent implements OnInit {
   @Output() eventOutput = new EventEmitter();
 
   //formulário e elementos
-  cadastroForm: FormGroup;
+  taskForm: FormGroup;
   itemId: string;
   itemNome: string;
   language: string;
+  dialogTitle: string = ''
+
   //booleans
-  displayAdicionar: boolean;
-  displayExcluir: boolean;
+  //displayAdicionar: boolean;
+  //displayExcluir: boolean;
   isEditar: boolean;
+  displayAddEdit: boolean = false;
+  displayDelete: boolean = false;
 
   //usuario
   userData: any;
@@ -45,7 +49,6 @@ export class TaskManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Iniciando task-manager')
     this.formComponent();
     this.getDropListInfos();
   }
@@ -74,7 +77,7 @@ export class TaskManagerComponent implements OnInit {
   }
 
   formComponent() {
-    this.cadastroForm = this.formBuilder.group({
+    this.taskForm = this.formBuilder.group({
       id: [''],
       task: ['', [Validators.required, Validators.minLength(2)]],
       time: ['', [Validators.required, Validators.minLength(2)]],
@@ -86,130 +89,54 @@ export class TaskManagerComponent implements OnInit {
   }
 
   setFormAdd() {
-    this.displayAdicionar = true;
-    this.cadastroForm.reset();
+
+    this.dialogTitle = 'Adicionar Tarefa'
+    this.displayAddEdit = true;
     this.isEditar = false;
+    this.taskForm.reset();
+
   }
 
   setFormEdit(item) {
-    this.cadastroForm.controls.name.setValue(item.name);
-    this.cadastroForm.controls.document.setValue(item.document);
-    this.displayAdicionar = true;
+    this.displayAddEdit = true;
+    this.taskForm.setValue(item);
+ /*    this.taskForm.controls.time.setValue(item.time);
+    this.taskForm.controls.category.setValue(item.category);
+    this.taskForm.controls.status.setValue(item.status);
+    this.taskForm.controls.description.setValue(item.description); */
+    this.dialogTitle = 'Editar Tarefa'
     this.isEditar = true;
+
   }
 
   setFormRemove(item) {
     this.itemId = item.name;
     this.itemNome = item.name;
     this.isEditar = false;
-    this.displayExcluir = true;
+    this.displayDelete = true;
   }
 
   cancel() {
-    this.displayAdicionar = false;
-    this.cadastroForm.reset();
+    this.displayAddEdit = false;
+    this.taskForm.reset();
   }
 
   save() {
     this.isLoadingButton = true;
-    this.cadastroForm.get('userid')?.setValue(this.userData.uid)
-    this.tasksService.insert(this.cadastroForm.value)
+    this.taskForm.get('userid')?.setValue(this.userData.uid)
+    this.tasksService.insert(this.taskForm.value)
+    this.displayAddEdit = false;
   }
 
-
-  /*
-  salvar() {
+  update() {
     this.isLoadingButton = true;
-    this.genericService.tipoUrl('checkCompany', this.cadastroForm.value);
-    this.genericService.post()
-      .subscribe(
-        (resp) => {
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'success',
-            summary: Mensagens.CadastroSummary,
-            detail: Mensagens.CadastroDetail
-          });
-          localStorage.setItem('empresaInfo', this.cadastroForm.value);
-          this.eventOutput.emit();
-          this.cadastroForm.reset();
-          this.displayAdicionar = false;
-          this.isLoadingButton = false;
-          this.router.navigate(['cadastro/essenciais']);
-        }, error => {
-          this.isLoadingButton = false;
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'warn',
-            summary: error.error.msg.summary,
-            detail: error.error.msg.detail
-          });
-          this.cadastroForm.reset();
-        }
-      );
+    this.taskForm.get('userid')?.setValue(this.userData.uid)
+    this.tasksService.update(this.taskForm.value)
+    this.displayAddEdit = false;
   }
 
-  editar() {
-    this.isLoadingButton = true;
-    //Conversão do objeto para Base64
-    let userInfoBase64 = this.commonServices.convertToBase64(this.cadastroForm.value);
-    //Encriptação do obejto previamente convertido paraBase64
-    let userInfoEncrip = this.cryptoService.encrypt(userInfoBase64);
-    this.genericService.urlService = 'gestao_acesso/usuario/atualizar/' + userInfoEncrip;
-    this.genericService.put()
-      .subscribe(
-        (resp) => {
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'success',
-            summary: Mensagens.AtualizarSummary,
-            detail: Mensagens.AtualizarDetail
-          });
-          this.eventOutput.emit();
-          this.cadastroForm.reset();
-          this.displayAdicionar = false;
-          this.isLoadingButton = false;
-        }, error => {
-          this.isLoadingButton = false;
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'error',
-            summary: error.error.msg.summary,
-            detail: error.error.msg.detail
-          });
-        }
-      );
-  }
-
-  excluir() {
-    //Conversão do objeto para Base64
-    let userInfoBase64 = this.commonServices.convertToBase64(this.itemId);
-    //Encriptação do objeto previamente convertido paraBase64
-    let userInfoEncrip = this.cryptoService.encrypt(userInfoBase64);
-    this.genericService.urlService = 'gestao_acesso/usuario/deletar/' + userInfoEncrip;
-    this.genericService.delete()
-      .subscribe(
-        (resp) => {
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'success',
-            summary: Mensagens.ExcluirSummary,
-            detail: Mensagens.ExcluirDetail
-          });
-          this.eventOutput.emit();
-          this.displayExcluir = false;
-        }, error => {
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'error',
-            summary: error.error.msg.summary,
-            detail: error.error.msg.detail
-          });
-        }
-      );
-  }
 
   cancelarExcluir() {
-    this.displayExcluir = false;
-  } */
+    this.displayDelete = false;
+  }
 }

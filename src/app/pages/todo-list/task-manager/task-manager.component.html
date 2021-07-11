@@ -1,7 +1,7 @@
 <div class="text-left" >
   <!-- Dialog de Adição e Edição da Item -->
-  <p-dialog header="Adicionar Tarefa" [(visible)]="displayAdicionar" [modal]="true" [style]="{ width: '37vw' }"
-    [baseZIndex]="10000" [formGroup]="cadastroForm">
+  <p-dialog header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true" [style]="{ width: '37vw' }"
+    [baseZIndex]="10000" [formGroup]="taskForm">
     <!-- Formulário -->
     <div class="p-fluid">
       <!-- Nome -->
@@ -12,7 +12,8 @@
       <!-- Horário -->
       <div class="p-field">
         <label for="time">Horário</label>
-        <p-calendar id="time" type="text" hourFormat="24" formControlName="time" placeholder="Horário" required timeOnly="true"></p-calendar>
+        <!-- <p-calendar id="time" type="text" dateFormat="yyyy-mm-dd" hourFormat="24" formControlName="time" placeholder="Horário" required timeOnly="true"></p-calendar> -->
+        <input id="time" type="text" pInputText formControlName="time" minlength="2" placeholder="Horário" required />
       </div>
       <!-- Categoria -->
       <div class="p-field">
@@ -35,29 +36,14 @@
       label="Cancelar" icon="pi pi-times" (click)="cancel()"
       pTooltip="Cancelar" tooltipPosition="bottom"></button>
       <button pButton type="button" label="Salvar" icon="pi pi-check"
-      (click)="save()" [disabled]="!cadastroForm.valid" *ngIf="!isEditar && !isLoadingButton"
-      pTooltip="Salvar" tooltipPosition="bottom"></button>
-
+      (click)="save()" [disabled]="!taskForm.valid"
+      pTooltip="Salvar" tooltipPosition="bottom" *ngIf="!isEditar"></button>
+      <button pButton type="button" label="Atualizar" icon="pi pi-check"
+      (click)="update()" [disabled]="!taskForm.valid"
+      pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
     </div>
-    <b>{{ cadastroForm.value | json }}</b>
-    <!-- <div class="p-col-12">
-      <div class="flex-display-cols">
-        <div class="p-col-12">
-          <div class="text-end">
-            <button pButton class="btn-secondary margin-10" type="button"
-              label="{{'empresa.cancel-button' | transloco}}" icon="pi pi-times" (click)="cancelar()"
-              pTooltip="{{'empresa.cancel-button' | transloco}}" tooltipPosition="bottom"></button>
-            <button pButton type="button" label="{{'cadastro.start-process' | transloco}}" icon="pi pi-check"
-              (click)="salvar()" [disabled]="!cadastroForm.valid" *ngIf="!isEditar && !isLoadingButton"
-              pTooltip="{{'cadastro.start-process' | transloco}}" tooltipPosition="bottom"></button>
-            <button pButton type="button" label="{{'cadastro.edit-process' | transloco}}" icon="pi pi-check"
-              (click)="editar()" [disabled]="!cadastroForm.valid" *ngIf="isEditar && !isLoadingButton"
-              pTooltip="{{'cadastro.edit-process' | transloco}}" tooltipPosition="bottom"></button>
-            <button pButton type="button" icon="pi pi-spin pi-spinner" *ngIf="isLoadingButton"></button>
-          </div>
-        </div>
-      </div>
-    </div> -->
+    <b>{{ taskForm.value | json }}</b>
+
   </p-dialog>
   <!-- Dialog de Exclusão do Item -->
   <!-- <p-dialog header="{{'empresa.easy-hunting' | transloco}}" [(visible)]="displayExcluir" [modal]="true"

@@ -13,6 +13,7 @@ import { TaskManagerComponent } from './task-manager/task-manager.component';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
+
   // Tarefas
   tasks: Task[];
 
@@ -25,9 +26,10 @@ export class TodoListComponent implements OnInit {
   // Modelo
   itens: any[];
 
-  // Controle de erro
+  // Controle
   isError: boolean;
   showDetail: boolean = true;
+
 
   //Variáves do formulários
   categories: any;
@@ -44,7 +46,6 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Iniciando todo-list');
     this.getTasksInfo();
     this.setTable();
   }
@@ -92,8 +93,14 @@ export class TodoListComponent implements OnInit {
     ];
   }
 
-  //função que define os parametros de adição para o elemento filho
+
   getAddTask() {
     this.componetChild.setFormAdd();
   }
+
+  getEditar(event, item: Task) {
+    this.componetChild.setFormEdit(item);
+
+  }
+
 }

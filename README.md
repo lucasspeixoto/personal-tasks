@@ -19,7 +19,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 🔖 Layout
 
-![interface](src/assets/images/layout.png "Sistema")
+![interface](src/assets/images/login.png "Tela de Login")
+
+![interface](src/assets/images/tasks.png "Tabela de Tarefas")
 
 ## 🚀 Instalação
 
