@@ -59,12 +59,10 @@
           <ng-template pTemplate="body" let-item>
             <tr [pEditableRow]="rowData">
               <td *ngFor="let col of cols" [ngStyle]="{ 'text-align': col.align }" (click)="selectItem(item)"
-                style="cursor: pointer"
-                [ngClass]="{
+                style="cursor: pointer" [ngClass]="{
                   ok: item[col.field] === 'Feito',
                   nok: item[col.field] === 'Pendente',
-                  start: item[col.field] === 'Em andamento'}"
-                  >
+                  start: item[col.field] === 'Em andamento'}">
                 {{
                 item[col.field]?.nome
                 ? item[col.field]?.nome
@@ -75,7 +73,7 @@
 
               <td style="text-align: center;">
                 <button class="action-button see" pButton type="button" pInitEditableRow icon="pi pi-eye"
-                  (click)="alert('Descrição')" pTooltip="Descrição" tooltipPosition="left"></button>
+                  (click)="getDescription($event, item)" pTooltip="Descrição" tooltipPosition="left"></button>
 
                 <button class="action-button edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
                   (click)="getEditar($event, item)" pTooltip="Editar" tooltipPosition="bottom"></button>

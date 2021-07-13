@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
@@ -34,6 +36,9 @@ export class TodoListComponent implements OnInit {
   //Variáves do formulários
   categories: any;
 
+
+  destroy$ = new Subject();
+
   @ViewChild(TaskManagerComponent) componetChild;
 
   constructor(
@@ -50,11 +55,16 @@ export class TodoListComponent implements OnInit {
     this.setTable();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   // Função para obter tarefas do banco
   getTasksInfo() {
-    this.taskService
-      .getAll()
+    this.taskService.getAll().valueChanges()
       .pipe(
+        takeUntil(this.destroy$),
         map((obj) =>
           obj.filter((obj) =>
             obj['userid'] === this.userData.uid
@@ -96,9 +106,12 @@ export class TodoListComponent implements OnInit {
     this.componetChild.setFormAdd();
   }
 
+  getDescription(event, item: Task) {
+    this.componetChild.setDescription(item);
+  }
+
   getEditar(event, item: Task) {
     this.componetChild.setFormEdit(item);
-
   }
 
   getExcluir(event, item: Task) {

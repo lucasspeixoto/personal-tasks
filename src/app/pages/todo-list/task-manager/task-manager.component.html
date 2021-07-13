@@ -12,13 +12,17 @@
       <!-- Horário -->
       <div class="p-field">
         <label for="time">Horário</label>
-        <!-- <p-calendar id="time" type="text" dateFormat="yyyy-mm-dd" hourFormat="24" formControlName="time" placeholder="Horário" required timeOnly="true"></p-calendar> -->
-        <input id="time" type="text" pInputText formControlName="time" minlength="2" placeholder="Horário" required />
+        <!-- <p-calendar id="time" type="text" [timeOnly]="true" hourFormat="24" formControlName="time" placeholder="Horário" required ></p-calendar> -->
+        <!-- <input id="time" type="text" pInputText formControlName="time" minlength="2" placeholder="Horário" required /> -->
+        <!-- <p-calendar formControlName="time" dateFormat="yyyy-mm-dd, HH:mm:ss" [timeOnly]="true" (onSelect)="setTime($event)" inputId="time"></p-calendar> -->
+        <input id="time" type="time" pInputText formControlName="time" minlength="2" placeholder="Tarefa" required />
+
       </div>
       <!-- Categoria -->
       <div class="p-field">
         <label for="category">Categoria</label>
-        <p-dropdown [options]="categories" formControlName="category" placeholder="Categoria" editable="false"></p-dropdown>
+        <p-dropdown [options]="categories" formControlName="category" placeholder="Categoria" editable="false">
+        </p-dropdown>
       </div>
       <!-- Situação -->
       <div class="p-field">
@@ -40,19 +44,17 @@
       <button pButton type="button" label="Atualizar" icon="pi pi-check" (click)="update()" [disabled]="!taskForm.valid"
         pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
     </div>
-    <b>{{ taskForm.value | json }}</b>
-
   </p-dialog>
   <!-- Dialog de Exclusão do Item -->
-  <p-dialog header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true" [style]="{width: '30vw', height: '50vh'}"
+  <p-dialog header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true" [style]="{width: '30vw'}"
     [baseZIndex]="10000">
     <p class="margin-0">Excluir a tarefa - <b>'{{itemNome}}'</b></p>
     <div class="p-col-12">
       <div class="flex-display-cols">
         <div class="p-col-12">
           <div class="text-end">
-            <button pButton class="action-button no" type="button" label="Não" (click)="cancelDelete()" pTooltip="Cancelar"
-              tooltipPosition="bottom"></button>
+            <button pButton class="action-button no" type="button" label="Não" (click)="cancelDelete()"
+              pTooltip="Cancelar" tooltipPosition="bottom"></button>
             <button pButton class="action-button yes" type="button" label="Sim" (click)="delete()" pTooltip="Confirmar"
               tooltipPosition="bottom"></button>
           </div>
@@ -60,4 +62,12 @@
       </div>
     </div>
   </p-dialog>
+  <!-- Dialog de Exibição da descrição -->
+  <p-dialog header="{{dialogTitle | titlecase}}" [(visible)]="displayDescription" [modal]="true"
+    [style]="{width: '40vw'}" [baseZIndex]="10000">
+    <p class="margin-0">{{description}}</p>
+  </p-dialog>
+
+  <!-- <b>{{ taskForm.value | json }}</b> -->
+
 </div>

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
 import { TaskService } from 'src/app/shared/services/tasks.service';
 import { Detail, Summary } from './../../../shared/static/messages';
@@ -23,13 +22,13 @@ export class TaskManagerComponent implements OnInit {
   itemNome: string;
   language: string;
   dialogTitle: string = ''
+  description: string
 
   //booleans
-  //displayAdicionar: boolean;
-  //displayExcluir: boolean;
   isEditar: boolean;
   displayAddEdit: boolean = false;
   displayDelete: boolean = false;
+  displayDescription: boolean = false;
 
   //usuario
   userData: any;
@@ -84,17 +83,21 @@ export class TaskManagerComponent implements OnInit {
       category: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
       status: ['', [Validators.required, Validators.minLength(2)]],
-      userid: ['']
+      userid: [this.userData.uid]
     });
   }
 
   setFormAdd() {
-
     this.dialogTitle = 'Adicionar Tarefa'
     this.displayAddEdit = true;
     this.isEditar = false;
     this.taskForm.reset();
+  }
 
+  setDescription(item) {
+    this.dialogTitle = item.task
+    this.displayDescription = true;
+    this.description = item.description;
   }
 
   setFormEdit(item) {
@@ -102,7 +105,6 @@ export class TaskManagerComponent implements OnInit {
     this.taskForm.setValue(item);
     this.dialogTitle = 'Editar Tarefa'
     this.isEditar = true;
-
   }
 
   setFormRemove(item) {
@@ -112,6 +114,14 @@ export class TaskManagerComponent implements OnInit {
     this.displayDelete = true;
   }
 
+
+  setTime(item) {
+    let format = this.taskForm.controls.time.value;
+    console.log(this.taskForm.controls.time.value)
+    /* console.log(format.split('T'));
+    console.log(this.taskForm.controls.time.value)
+    "| date: dd/MM/yyyy, hh:mm" */
+  }
 
 
   save() {
