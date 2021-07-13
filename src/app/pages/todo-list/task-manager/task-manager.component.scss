@@ -1,5 +1,38 @@
-.p-dialog {
-  font-size:x-large;
+
+.dialog-text {
+  font-size: 1.0rem;
 }
 
+.action-button {
+  color: #fff;
+  height: 50px;
+  width: 8vw;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1.20rem;
+}
+
+.yes {
+  gap: 10px;
+  margin: 8%;
+  background-color: #b91313;
+  border: 1px solid #b91313;
+}
+.yes:enabled:hover {
+  background-color: #fff;
+  color: #b91313;
+  border: 1px solid #b91313
+}
+
+.no {
+  gap: 10px;
+  margin: 8%;
+  background-color: #0e961a;
+  border: 1px solid #0e961a;
+}
+.no:enabled:hover {
+  background-color: #fff;
+  color: #0e961a;
+  border: 1px solid #0e961a
+}
 

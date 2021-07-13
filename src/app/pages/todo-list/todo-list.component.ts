@@ -86,13 +86,11 @@ export class TodoListComponent implements OnInit {
   setTable() {
     this.cols = [
       { field: 'task', header: 'Tarefa', width: '30%', align: 'left' },
-      { field: 'time', header: 'Horário', width: '20%', align: 'left' },
-      { field: 'category', header: 'Categoria', width: '20%', align: 'left' },
-      { field: 'status', header: 'Situação', width: '20%', align: 'left' },
-      /*  { field: 'owner', header: 'Dono', width: '20%', align: 'left' }, */
+      { field: 'time', header: 'Horário', width: '12%', align: 'left' },
+      { field: 'category', header: 'Categoria', width: '15%', align: 'left' },
+      { field: 'status', header: 'Situação', width: '15%', align: 'left' },
     ];
   }
-
 
   getAddTask() {
     this.componetChild.setFormAdd();
@@ -101,6 +99,10 @@ export class TodoListComponent implements OnInit {
   getEditar(event, item: Task) {
     this.componetChild.setFormEdit(item);
 
+  }
+
+  getExcluir(event, item: Task) {
+    this.componetChild.setFormRemove(item)
   }
 
 }

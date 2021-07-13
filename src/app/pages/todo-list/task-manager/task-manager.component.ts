@@ -100,26 +100,19 @@ export class TaskManagerComponent implements OnInit {
   setFormEdit(item) {
     this.displayAddEdit = true;
     this.taskForm.setValue(item);
- /*    this.taskForm.controls.time.setValue(item.time);
-    this.taskForm.controls.category.setValue(item.category);
-    this.taskForm.controls.status.setValue(item.status);
-    this.taskForm.controls.description.setValue(item.description); */
     this.dialogTitle = 'Editar Tarefa'
     this.isEditar = true;
 
   }
 
   setFormRemove(item) {
-    this.itemId = item.name;
-    this.itemNome = item.name;
+    this.itemId = item.id;
+    this.itemNome = item.task;
     this.isEditar = false;
     this.displayDelete = true;
   }
 
-  cancel() {
-    this.displayAddEdit = false;
-    this.taskForm.reset();
-  }
+
 
   save() {
     this.isLoadingButton = true;
@@ -135,8 +128,18 @@ export class TaskManagerComponent implements OnInit {
     this.displayAddEdit = false;
   }
 
+  delete() {
+    this.isLoadingButton = true;
+    this.tasksService.remove(this.taskForm.value)
+    this.displayDelete = false;
+  }
 
-  cancelarExcluir() {
+  cancelAddAndEdit() {
+    this.displayAddEdit = false;
+    this.taskForm.reset();
+  }
+
+  cancelDelete() {
     this.displayDelete = false;
   }
 }

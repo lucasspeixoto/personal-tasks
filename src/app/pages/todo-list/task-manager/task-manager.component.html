@@ -1,4 +1,4 @@
-<div class="text-left" >
+<div class="text-left">
   <!-- Dialog de Adição e Edição da Item -->
   <p-dialog header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true" [style]="{ width: '37vw' }"
     [baseZIndex]="10000" [formGroup]="taskForm">
@@ -18,49 +18,46 @@
       <!-- Categoria -->
       <div class="p-field">
         <label for="category">Categoria</label>
-        <p-dropdown [options]="categories" formControlName="category" editable="false"></p-dropdown>
+        <p-dropdown [options]="categories" formControlName="category" placeholder="Categoria" editable="false"></p-dropdown>
       </div>
       <!-- Situação -->
       <div class="p-field">
         <label for="status">Situação</label>
-        <p-dropdown [options]="status" formControlName="status" editable="false"></p-dropdown>
+        <p-dropdown [options]="status" formControlName="status" placeholder="Situação" editable="false"></p-dropdown>
       </div>
       <!-- Descrição -->
       <div class="p-field">
         <label for="description">Descrição</label>
-        <textarea rows="7" pInputText cols="37" pInputTextarea formControlName="description" autoResize="autoResize"></textarea>
+        <textarea rows="7" pInputText cols="37" pInputTextarea placeholder="Descrição" formControlName="description"
+          autoResize="autoResize"></textarea>
       </div>
     </div>
     <div class="p-field">
-      <button pButton class="btn-secondary margin-10" type="button"
-      label="Cancelar" icon="pi pi-times" (click)="cancel()"
-      pTooltip="Cancelar" tooltipPosition="bottom"></button>
-      <button pButton type="button" label="Salvar" icon="pi pi-check"
-      (click)="save()" [disabled]="!taskForm.valid"
-      pTooltip="Salvar" tooltipPosition="bottom" *ngIf="!isEditar"></button>
-      <button pButton type="button" label="Atualizar" icon="pi pi-check"
-      (click)="update()" [disabled]="!taskForm.valid"
-      pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
+      <button pButton class="btn-secondary margin-10" type="button" label="Cancelar" icon="pi pi-times"
+        (click)="cancelAddAndEdit()" pTooltip="Cancelar" tooltipPosition="bottom"></button>
+      <button pButton type="button" label="Salvar" icon="pi pi-check" (click)="save()" [disabled]="!taskForm.valid"
+        pTooltip="Salvar" tooltipPosition="bottom" *ngIf="!isEditar"></button>
+      <button pButton type="button" label="Atualizar" icon="pi pi-check" (click)="update()" [disabled]="!taskForm.valid"
+        pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
     </div>
     <b>{{ taskForm.value | json }}</b>
 
   </p-dialog>
   <!-- Dialog de Exclusão do Item -->
-  <!-- <p-dialog header="{{'empresa.easy-hunting' | transloco}}" [(visible)]="displayExcluir" [modal]="true"
-    [style]="{width: '30vw'}" [baseZIndex]="10000">
-    <p class="margin-0">{{'empresa.delete-label-alert' | transloco}} - <b>{{itemNome}}</b></p>
+  <p-dialog header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true" [style]="{width: '30vw', height: '50vh'}"
+    [baseZIndex]="10000">
+    <p class="margin-0">Excluir a tarefa - <b>'{{itemNome}}'</b></p>
     <div class="p-col-12">
       <div class="flex-display-cols">
         <div class="p-col-12">
           <div class="text-end">
-            <button pButton class="btn-secondary margin-10" type="button"
-              label="{{'empresa.cancel-button' | transloco}}" icon="pi pi-times" (click)="cancelarExcluir()"
-              pTooltip="{{'empresa.cancel-button' | transloco}}" tooltipPosition="bottom"></button>
-            <button pButton type="button" label="{{'empresa.delete-label' | transloco}}" icon="pi pi-check"
-              (click)="excluir()" pTooltip="{{'empresa.delete-label' | transloco}}" tooltipPosition="bottom"></button>
+            <button pButton class="action-button no" type="button" label="Não" (click)="cancelDelete()" pTooltip="Cancelar"
+              tooltipPosition="bottom"></button>
+            <button pButton class="action-button yes" type="button" label="Sim" (click)="delete()" pTooltip="Confirmar"
+              tooltipPosition="bottom"></button>
           </div>
         </div>
       </div>
     </div>
-  </p-dialog> -->
+  </p-dialog>
 </div>

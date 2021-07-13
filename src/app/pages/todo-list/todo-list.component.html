@@ -21,8 +21,8 @@
         </div>
       </div>
 
-      <!-- Painel Contendo tabela -->
-      <p-tabPanel header="Tarefas" *ngIf="itens">
+      <!-- Painel Contendo tabela de Tarefas diárias -->
+      <p-tabPanel header="Diário" *ngIf="itens">
         <!-- Tabela -->
         <p-table #dt [value]="itens" [paginator]="true" [rows]="10" selectionMode="single"
           [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
@@ -38,8 +38,8 @@
               <!-- Campos de ordenação dos filtros -->
               <th style="width: 15%" class="content-column">
                 <h1 style="text-align: center; margin: 0">
-                  <button type="button" pButton icon="pi pi-plus" iconPos="left" (click)="getAddTask()" pTooltip="Adicionar"
-                    tooltipPosition="bottom"></button>
+                  <button class="add" type="button" pButton (click)="getAddTask()" pTooltip="Incluir Tarefa"
+                    tooltipPosition="bottom">Adicionar</button>
                 </h1>
               </th>
 
@@ -73,12 +73,15 @@
 
               </td>
 
-              <td style="text-align: center">
-                <button class="edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+              <td style="text-align: center;">
+                <button class="action-button see" pButton type="button" pInitEditableRow icon="pi pi-eye"
+                  (click)="alert('Descrição')" pTooltip="Descrição" tooltipPosition="left"></button>
+
+                <button class="action-button edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
                   (click)="getEditar($event, item)" pTooltip="Editar" tooltipPosition="bottom"></button>
 
-                <button class="delete" pButton type="button" pInitEditableRow icon="pi pi-trash"
-                  (click)="getExcluir($event, item)" pTooltip="Excluir" tooltipPosition="bottom"></button>
+                <button class="action-button delete" pButton type="button" pInitEditableRow icon="pi pi-trash"
+                  (click)="getExcluir($event, item)" pTooltip="Excluir" tooltipPosition="right"></button>
               </td>
             </tr>
           </ng-template>
@@ -90,6 +93,8 @@
           </ng-template>
         </p-table>
       </p-tabPanel>
+
+      <!-- <p-tabPanel header="Agenda"></p-tabPanel> -->
 
       <app-task-manager (eventOutput)="getTasksInfo()"></app-task-manager>
     </p-tabView>

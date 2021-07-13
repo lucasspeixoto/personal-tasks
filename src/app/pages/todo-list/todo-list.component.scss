@@ -11,6 +11,10 @@
   min-height: 90vh;
 }
 
+.add {
+  font-size: 1.2rem;
+}
+
 .refresh {
   color: #fff;
   background-color: #0c0b0b;
@@ -25,37 +29,45 @@
   border: 1px solid #0c0b0b
 }
 
-.edit {
+.action-button {
   color: #fff;
+  height: 35px;
+  margin-left: 1%;
+  margin-right: 1%;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 0.80rem;
+}
+
+.see {
+  background-color: #0e961a;
+  border: 1px solid #0e961a;
+}
+.see:enabled:hover {
+  background-color: #fff;
+  color: #0e961a;
+  border: 1px solid #0e961a
+}
+
+
+.edit {
   background-color: #f5d000;
   border: 1px solid #f5d000;
-  border-radius: 5px;
-  font-size: 0.875rem;
-  padding: 0.4375rem 0.875rem;
-
 }
 .edit:enabled:hover {
   background-color: #fff;
   color: #f5d000;
-  border: 1px solid #f5d000
+  border: 1px solid #f5d000;
 }
 
-
 .delete {
-  height: 35px;
-  margin-left: 10px;
-  color: #fff;
   background-color: #b91313;
   border: 1px solid #b91313;
-  border-radius: 5px;
-  font-size: 0.875rem;
-  padding: 0.4375rem 0.875rem;
-
 }
 .delete:enabled:hover {
   background-color: #fff;
   color: #b91313;
-  border: 1px solid #b91313
+  border: 1px solid #b91313;
 }
 
 /* Estilização da situação */
