@@ -49,9 +49,10 @@ export class TaskService {
   }
 
   // Exclusão de Tarefa
-  remove(data: any) {
-    if (data) {
-      const dbRef = this.angularFireDatabase.list('/tasks/' + `${data.id}`);
+  remove(id: any) {
+    if (id) {
+      console.log(`ID: ${id}`)
+      const dbRef = this.angularFireDatabase.list(`/tasks/${id}`);
       dbRef.remove();
     }
   }

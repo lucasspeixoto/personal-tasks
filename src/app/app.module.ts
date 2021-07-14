@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/services/auth.service';
 import { ParametersService } from './shared/services/parameters.service';
+import { TaskService } from './shared/services/tasks.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,7 +46,7 @@ import { ParametersService } from './shared/services/parameters.service';
     SharedCommonModule,
     HttpClientModule,
   ],
-  providers: [AuthService, ParametersService],
+  providers: [AuthService, ParametersService, TaskService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

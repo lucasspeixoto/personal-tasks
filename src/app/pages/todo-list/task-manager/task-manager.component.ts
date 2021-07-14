@@ -140,7 +140,7 @@ export class TaskManagerComponent implements OnInit {
 
   delete() {
     this.isLoadingButton = true;
-    this.tasksService.remove(this.taskForm.value)
+    this.tasksService.remove(this.itemId)
     this.displayDelete = false;
   }
 
