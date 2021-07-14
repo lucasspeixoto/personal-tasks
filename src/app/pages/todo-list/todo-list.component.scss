@@ -39,18 +39,18 @@
   font-size: 0.80rem;
 }
 
-.see {
+.edit {
   background-color: #0e961a;
   border: 1px solid #0e961a;
 }
-.see:enabled:hover {
+.edit:enabled:hover {
   background-color: #fff;
   color: #0e961a;
   border: 1px solid #0e961a
 }
 
 
-.edit {
+/* .edit {
   background-color: #f5d000;
   border: 1px solid #f5d000;
 }
@@ -58,7 +58,7 @@
   background-color: #fff;
   color: #f5d000;
   border: 1px solid #f5d000;
-}
+} */
 
 .delete {
   background-color: #b91313;

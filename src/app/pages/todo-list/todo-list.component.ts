@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { Task } from 'src/app/shared/static/task';
 import { TaskService } from './../../shared/services/tasks.service';
 import { Summary, Detail } from './../../shared/static/messages';
@@ -21,6 +22,7 @@ export class TodoListComponent implements OnInit {
 
   // Usuário
   userData: any;
+  userData2: any;
 
   // Colunas da tabela
   cols: any[];
@@ -36,7 +38,6 @@ export class TodoListComponent implements OnInit {
   //Variáves do formulários
   categories: any;
 
-
   destroy$ = new Subject();
 
   @ViewChild(TaskManagerComponent) componetChild;
@@ -45,6 +46,7 @@ export class TodoListComponent implements OnInit {
     private taskService: TaskService,
     private messageService: MessageService,
     public authService: AuthService,
+    public userService: UserService,
     public parametersService: ParametersService
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));

@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
 import { TaskService } from 'src/app/shared/services/tasks.service';
 import { Detail, Summary } from './../../../shared/static/messages';
+import { Task } from './../../../shared/static/task';
 
 @Component({
   selector: 'app-task-manager',
@@ -32,7 +33,7 @@ export class TaskManagerComponent implements OnInit {
 
   //usuario
   userData: any;
-  isLoadingButton: boolean;
+  loading: boolean;
 
   categories: any;
   status: any;
@@ -94,22 +95,22 @@ export class TaskManagerComponent implements OnInit {
     this.taskForm.reset();
   }
 
-  setDescription(item) {
-    this.dialogTitle = item.task
+  setDescription(task: Task) {
+    this.dialogTitle = task.task
     this.displayDescription = true;
-    this.description = item.description;
+    this.description = task.description;
   }
 
-  setFormEdit(item) {
+  setFormEdit(task: Task) {
     this.displayAddEdit = true;
-    this.taskForm.setValue(item);
+    this.taskForm.setValue(task);
     this.dialogTitle = 'Editar Tarefa'
     this.isEditar = true;
   }
 
-  setFormRemove(item) {
-    this.itemId = item.id;
-    this.itemNome = item.task;
+  setFormRemove(task: Task) {
+    this.itemId = task.id;
+    this.itemNome = task.task;
     this.isEditar = false;
     this.displayDelete = true;
   }
@@ -125,21 +126,21 @@ export class TaskManagerComponent implements OnInit {
 
 
   save() {
-    this.isLoadingButton = true;
+    this.loading = true;
     this.taskForm.get('userid')?.setValue(this.userData.uid)
     this.tasksService.insert(this.taskForm.value)
     this.displayAddEdit = false;
   }
 
   update() {
-    this.isLoadingButton = true;
+    this.loading = true;
     this.taskForm.get('userid')?.setValue(this.userData.uid)
     this.tasksService.update(this.taskForm.value)
     this.displayAddEdit = false;
   }
 
   delete() {
-    this.isLoadingButton = true;
+    this.loading = true;
     this.tasksService.remove(this.itemId)
     this.displayDelete = false;
   }

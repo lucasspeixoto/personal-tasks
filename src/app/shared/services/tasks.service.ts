@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 import { AuthService } from './auth.service';
+import { Task } from './../static/task';
 
 @Injectable({
   providedIn: 'root',
@@ -22,15 +23,13 @@ export class TaskService {
   }
 
   // Adição de tarefa
-  insert(data: any) {
-    const dbRef = this.angularFireDatabase.list('/tasks');
-    dbRef
-      .push(data)
+  insert(task: Task) {
+    this.angularFireDatabase.list('/tasks')
+      .push(task)
       .then((res) => {
-        data.id = res.key;
-        const database = this.angularFireDatabase.object('/tasks/' + `${res.key}`);
-        database
-          .update(data)
+        task.id = res.key;
+        this.angularFireDatabase.object('/tasks/' + `${res.key}`)
+          .update(task)
           .then((result) => { })
           .catch((err) => { });
       })
@@ -38,10 +37,9 @@ export class TaskService {
   }
 
   // Edição de tarefas
-  update(data: any) {
+  update(data: Task) {
     if (data) {
-      const dbRef = this.angularFireDatabase.object('/tasks/' + `${data.id}`);
-      dbRef
+      this.angularFireDatabase.object('/tasks/' + `${data.id}`)
         .update(data)
         .then((result) => { })
         .catch((err) => { });
@@ -49,12 +47,8 @@ export class TaskService {
   }
 
   // Exclusão de Tarefa
-  remove(id: any) {
-    if (id) {
-      console.log(`ID: ${id}`)
-      const dbRef = this.angularFireDatabase.list(`/tasks/${id}`);
-      dbRef.remove();
-    }
+  remove(id: string) {
+    this.angularFireDatabase.list(`/tasks/${id}`).remove()
   }
 
 }

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -21,9 +18,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private angularFireAuth: AngularFireAuth,
-    public authService: AuthService,
-    private router: Router
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +36,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    const { email, password } = this.registerForm.value
-    this.authService.SignUp(email, password)
+    const { email, password, name } = this.registerForm.value
+    this.authService.SignUp(email, password, name)
 
   }
 

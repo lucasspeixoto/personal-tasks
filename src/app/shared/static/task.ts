@@ -1,4 +1,4 @@
-export class Task {
+/* export class Task {
   id: string;
   task: string;
   time: string;
@@ -21,4 +21,14 @@ export class Task {
     this.status = status;
     this.userid = userid
   }
+}
+ */
+export interface Task {
+  id: string;
+  task: string;
+  time: string;
+  description: string;
+  category: string;
+  status: string;
+  userid: string;
 }

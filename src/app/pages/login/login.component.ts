@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'app-login',
@@ -20,9 +17,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public authService: AuthService,
-    private messageService: MessageService,
-    private angularFireAuth: AngularFireAuth,
-    private router: Router
   ) {}
 
   ngOnInit() {

@@ -9,6 +9,8 @@ import { User } from '../static/user';
 
 import { MessageService } from 'primeng/api';
 import { Summary, Detail } from '../static/messages';
+import { UserService } from './user.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,8 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userService: UserService,
   ) {
     //Salvar as informações do usuário no localStorage
     this.afAuth.authState.subscribe((user) => {
@@ -57,13 +60,15 @@ export class AuthService {
   }
 
   // Registrar com e-mail e senha
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, name: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         // Enviar e-mail de confirmação do cadastro
         this.SendVerificationMail();
         this.SetUserData(result.user);
+        this.userService.writeUserData(result.user.uid, name, email, password);
+
       })
       .catch((error) => {
         this.messageService.clear();
@@ -93,8 +98,7 @@ export class AuthService {
         this.messageService.add({
           severity: 'info',
           summary: 'E-mail enviado',
-          detail:
-            'O link para alteração foi enviado por e-mail, verificar caixa',
+          detail: 'O link para alteração foi enviado por e-mail, verificar caixa',
         });
       })
       .catch((error) => {
@@ -131,7 +135,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['tasks']);
         });
-        this.SetUserData(result.user);
+        this.SetUserData(result.user)
       })
       .catch((error) => {
         this.messageService.clear();
@@ -145,9 +149,7 @@ export class AuthService {
   /* Função para setar as informações do usuário quando logar (email e senha
     ou com provider com Google/Facebook) */
   SetUserData(user: User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -155,9 +157,7 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+    return userRef.set(userData, { merge: true });
   }
 
   // Deslogar
