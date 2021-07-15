@@ -6,41 +6,30 @@ import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ParametersService } from 'src/app/shared/services/parameters.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Task } from 'src/app/shared/static/task';
 import { TaskService } from './../../shared/services/tasks.service';
 import { Summary, Detail } from './../../shared/static/messages';
 import { TaskManagerComponent } from './task-manager/task-manager.component';
+import { Cols } from './../../shared/static/cols';
+import { Task } from './../../shared/static/task';
+import { ProviderUser } from './../../shared/static/user';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
+  providerUserData: ProviderUser
 
-  // Tarefas
-  tasks: Task[];
+  cols: Array<Cols>
 
-  // Usuário
-  userData: any;
-  userData2: any;
+  tasks: Task[]
 
-  // Colunas da tabela
-  cols: any[];
+  isError: boolean = false
+  showDetail: boolean = true
 
-  // Modelo
-  itens: any[];
+  taskObservableControl$ = new Subject()
 
-  // Controle
-  isError: boolean;
-  showDetail: boolean = true;
-
-
-  //Variáves do formulários
-  categories: any;
-
-  destroy$ = new Subject();
-
-  @ViewChild(TaskManagerComponent) componetChild;
+  @ViewChild(TaskManagerComponent) TaskModalManager
 
   constructor(
     private taskService: TaskService,
@@ -49,37 +38,37 @@ export class TodoListComponent implements OnInit {
     public userService: UserService,
     public parametersService: ParametersService
   ) {
-    this.userData = JSON.parse(localStorage.getItem('user'));
+    this.providerUserData = JSON.parse(localStorage.getItem('user'))
   }
 
   ngOnInit() {
-    this.getTasksInfo();
-    this.setTable();
+    this.getTasksInfo()
+    this.setTable()
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.taskObservableControl$.next()
+    this.taskObservableControl$.complete()
   }
 
   // Função para obter tarefas do banco
   getTasksInfo() {
-    this.taskService.getAll().valueChanges()
+    this.taskService
+      .getAll()
+      .valueChanges()
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this.taskObservableControl$),
         map((obj) =>
-          obj.filter((obj) =>
-            obj['userid'] === this.userData.uid
-          )
+          obj.filter((obj) => obj['userid'] === this.providerUserData.uid)
         )
       )
       .subscribe(
-        (task) => {
+        (task: Array<Task>) => {
           if (task === undefined) {
-            this.itens = [];
+            this.tasks = []
           } else {
-            this.itens = task;
-            this.isError = false;
+            this.tasks = task
+            this.isError = false
           }
         },
         (error) => {
@@ -105,19 +94,18 @@ export class TodoListComponent implements OnInit {
   }
 
   getAddTask() {
-    this.componetChild.setFormAdd();
+    this.TaskModalManager.setFormAdd()
   }
 
   getDescription(event, item: Task) {
-    this.componetChild.setDescription(item);
+    this.TaskModalManager.setDescription(item)
   }
 
   getEditar(event, item: Task) {
-    this.componetChild.setFormEdit(item);
+    this.TaskModalManager.setFormEdit(item)
   }
 
   getExcluir(event, item: Task) {
-    this.componetChild.setFormRemove(item)
+    this.TaskModalManager.setFormRemove(item)
   }
-
 }

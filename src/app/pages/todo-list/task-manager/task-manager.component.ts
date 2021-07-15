@@ -5,6 +5,7 @@ import { ParametersService } from 'src/app/shared/services/parameters.service';
 import { TaskService } from 'src/app/shared/services/tasks.service';
 import { Detail, Summary } from './../../../shared/static/messages';
 import { Task } from './../../../shared/static/task';
+import { ProviderUser } from './../../../shared/static/user';
 
 @Component({
   selector: 'app-task-manager',
@@ -13,67 +14,60 @@ import { Task } from './../../../shared/static/task';
 })
 export class TaskManagerComponent implements OnInit {
 
-  //comunicação entre componetes
-  @Input() item: Array<any>;
-  @Output() eventOutput = new EventEmitter();
+  @Input() item: Array<any>
+  @Output() eventOutput = new EventEmitter()
 
-  //formulário e elementos
-  taskForm: FormGroup;
-  itemId: string;
-  itemNome: string;
-  language: string;
-  dialogTitle: string = ''
+  taskForm: FormGroup
+  itemId: string
+  itemNome: string
+  dialogTitle: string
   description: string
 
-  //booleans
-  isEditar: boolean;
-  displayAddEdit: boolean = false;
-  displayDelete: boolean = false;
-  displayDescription: boolean = false;
+  isEditar: boolean
+  displayAddEdit: boolean = false
+  displayDelete: boolean = false
+  displayDescription: boolean = false
 
-  //usuario
-  userData: any;
-  loading: boolean;
+  providerUserData: ProviderUser
+  isLoadingButton: boolean
 
-  categories: any;
-  status: any;
+  categories: string[]
+  status: string[]
 
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     public parametersService: ParametersService,
-    private tasksService: TaskService,
-
+    private tasksService: TaskService
   ) {
-    this.userData = JSON.parse(localStorage.getItem('user'));
+    this.providerUserData = JSON.parse(localStorage.getItem('user'))
   }
 
   ngOnInit() {
-    this.formComponent();
-    this.getDropListInfos();
+    this.formComponent()
+    this.getDropListInfos()
   }
 
   getDropListInfos() {
-    this.parametersService.getDropListInfos()
-      .subscribe(
-        (resp) => {
-          if (resp === undefined) {
-            this.categories = [];
-            this.status = []
-          } else {
-            this.categories = resp[0];
-            this.status = resp[1]
-          }
-        },
-        (error) => {
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'error',
-            summary: Summary[error.code],
-            detail: Detail[error.code],
-          });
+    this.parametersService.getDropListInfos().subscribe(
+      (resp: Array<[]>) => {
+        if (resp === undefined) {
+          this.categories = []
+          this.status = []
+        } else {
+          this.categories = resp[0]
+          this.status = resp[1]
         }
-      );
+      },
+      (error) => {
+        this.messageService.clear()
+        this.messageService.add({
+          severity: 'error',
+          summary: Summary[error.code],
+          detail: Detail[error.code],
+        })
+      }
+    )
   }
 
   formComponent() {
@@ -84,28 +78,28 @@ export class TaskManagerComponent implements OnInit {
       category: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
       status: ['', [Validators.required, Validators.minLength(2)]],
-      userid: [this.userData.uid]
+      userid: [this.providerUserData.uid],
     });
   }
 
   setFormAdd() {
-    this.dialogTitle = 'Adicionar Tarefa'
+    this.dialogTitle = 'Adicionar Tarefa';
     this.displayAddEdit = true;
     this.isEditar = false;
     this.taskForm.reset();
   }
 
-  setDescription(task: Task) {
-    this.dialogTitle = task.task
-    this.displayDescription = true;
-    this.description = task.description;
-  }
-
   setFormEdit(task: Task) {
     this.displayAddEdit = true;
     this.taskForm.setValue(task);
-    this.dialogTitle = 'Editar Tarefa'
+    this.dialogTitle = 'Editar Tarefa';
     this.isEditar = true;
+  }
+
+  setDescription(task: Task) {
+    this.dialogTitle = task.task;
+    this.displayDescription = true;
+    this.description = task.description;
   }
 
   setFormRemove(task: Task) {
@@ -115,33 +109,23 @@ export class TaskManagerComponent implements OnInit {
     this.displayDelete = true;
   }
 
-
-  setTime(item) {
-    let format = this.taskForm.controls.time.value;
-    console.log(this.taskForm.controls.time.value)
-    /* console.log(format.split('T'));
-    console.log(this.taskForm.controls.time.value)
-    "| date: dd/MM/yyyy, hh:mm" */
-  }
-
-
   save() {
-    this.loading = true;
-    this.taskForm.get('userid')?.setValue(this.userData.uid)
-    this.tasksService.insert(this.taskForm.value)
+    this.isLoadingButton = true;
+    this.taskForm.get('userid')?.setValue(this.providerUserData.uid);
+    this.tasksService.insert(this.taskForm.value);
     this.displayAddEdit = false;
   }
 
   update() {
-    this.loading = true;
-    this.taskForm.get('userid')?.setValue(this.userData.uid)
-    this.tasksService.update(this.taskForm.value)
+    this.isLoadingButton = true;
+    this.taskForm.get('userid')?.setValue(this.providerUserData.uid);
+    this.tasksService.update(this.taskForm.value);
     this.displayAddEdit = false;
   }
 
   delete() {
-    this.loading = true;
-    this.tasksService.remove(this.itemId)
+    this.isLoadingButton = true;
+    this.tasksService.remove(this.itemId);
     this.displayDelete = false;
   }
 

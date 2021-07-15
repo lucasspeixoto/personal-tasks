@@ -1,14 +1,14 @@
-<div class="p-col-12 header" *ngIf="authService.userData as user">
+<div class="p-col-12 header" *ngIf="authService.providerUserData as user">
   <div class="p-grid">
     <div class="p-col-3">
       <p class="usertitle">
-        Olá <b>{{ (user.displayName) ? user.displayName : userName }}</b>
+        Olá <b>{{ (user.displayName) ? user.displayName : genericUserName }}</b>
       </p>
     </div>
     <div class="p-col-6">
-      <h2 class="texto">
+      <!-- <h2 class="texto">
         <img class="header-img" src="../assets/images/calendar.ico" />
-      </h2>
+      </h2> -->
     </div>
     <div class="p-col-3">
       <div style="text-align: end; margin: 2% 0%">

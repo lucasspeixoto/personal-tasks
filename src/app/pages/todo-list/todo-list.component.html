@@ -1,14 +1,14 @@
 <p-header>
   <app-header></app-header>
 </p-header>
-<div class="background" *ngIf="authService.userData as user">
+<div class="background" *ngIf="authService.providerUserData as user">
   <div class="container">
     <p-toast></p-toast>
 
     <h1 class="margin-0">Tarefas</h1>
     <p-tabView>
       <!-- Barra de loading -->
-      <div style="padding: 13%; text-align: center" *ngIf="!itens">
+      <div style="padding: 13%; text-align: center" *ngIf="!tasks">
         <p-progressSpinner></p-progressSpinner>
       </div>
 
@@ -22,9 +22,9 @@
       </div>
 
       <!-- Painel Contendo tabela de Tarefas diárias -->
-      <p-tabPanel header="Diário" *ngIf="itens">
+      <p-tabPanel header="Diário" *ngIf="tasks">
         <!-- Tabela -->
-        <p-table #dt [value]="itens" [paginator]="true" [rows]="10" selectionMode="single"
+        <p-table #dt [value]="tasks" [paginator]="true" [rows]="10" selectionMode="single"
           [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
           <ng-template pTemplate="header" *ngIf="showDetail">
             <!-- Campo de input dos filtros -->

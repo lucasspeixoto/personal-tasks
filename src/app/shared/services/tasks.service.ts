@@ -3,23 +3,24 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 import { AuthService } from './auth.service';
 import { Task } from './../static/task';
+import { ProviderUser } from './../static/user';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TaskService {
-  userData: any;
+  providerUserData: ProviderUser
 
   constructor(
     private angularFireDatabase: AngularFireDatabase,
     public authService: AuthService
   ) {
-    this.userData = JSON.parse(localStorage.getItem('user'));
+    this.providerUserData = JSON.parse(localStorage.getItem('user'))
   }
 
   // Leitura das Tarefas
   getAll() {
-    return this.angularFireDatabase.list(`/tasks`);
+    return this.angularFireDatabase.list(`/tasks`)
   }
 
   // Adição de tarefa
@@ -27,13 +28,13 @@ export class TaskService {
     this.angularFireDatabase.list('/tasks')
       .push(task)
       .then((res) => {
-        task.id = res.key;
+        task.id = res.key
         this.angularFireDatabase.object('/tasks/' + `${res.key}`)
           .update(task)
           .then((result) => { })
-          .catch((err) => { });
+          .catch((err) => { })
       })
-      .catch((err) => { });
+      .catch((err) => { })
   }
 
   // Edição de tarefas
@@ -42,7 +43,7 @@ export class TaskService {
       this.angularFireDatabase.object('/tasks/' + `${data.id}`)
         .update(data)
         .then((result) => { })
-        .catch((err) => { });
+        .catch((err) => { })
     }
   }
 

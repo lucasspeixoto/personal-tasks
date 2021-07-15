@@ -5,44 +5,49 @@ import { Detail, Summary } from 'src/app/shared/static/messages';
 import { AuthService } from '../../shared/services/auth.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { GenericUser, ProviderUser } from './../../shared/static/user';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  providerUserData: ProviderUser
+  genericUserData: Array<GenericUser>
+  genericUserName: string
 
-  userName: any
-  userData: any
-
-  destroy$ = new Subject();
+  userObservableControl$ = new Subject()
 
   constructor(
     public authService: AuthService,
     public userService: UserService,
-    private messageService: MessageService,
-  ) { this.userData = JSON.parse(localStorage.getItem('user')); }
+    private messageService: MessageService
+  ) {
+    this.providerUserData = JSON.parse(localStorage.getItem('user'))
+  }
 
   ngOnInit() {
     this.getUserInfo()
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.userObservableControl$.next()
+    this.userObservableControl$.complete()
   }
 
   // Função para obter tarefas do banco
   getUserInfo() {
-    this.userService.getUserData(this.userData.uid).valueChanges()
-      .pipe(takeUntil(this.destroy$))
+    this.userService
+      .getUserData(this.providerUserData.uid)
+      .valueChanges()
+      .pipe(takeUntil(this.userObservableControl$))
       .subscribe(
-        (user) => {
-          this.userName = user[2]
+        (user: string[]) => {
+          this.genericUserName = user[2]
         },
         (error) => {
-          this.messageService.clear();
+          this.messageService.clear()
           this.messageService.add({
             severity: 'error',
             summary: Summary[error.code],
@@ -55,13 +60,4 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.SignOut()
   }
-
-  onCreate() {
-    window.alert('Create')
-  }
-
-  onRefresh() {
-    window.alert('Refresh')
-  }
-
 }

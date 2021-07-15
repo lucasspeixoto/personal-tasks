@@ -1,14 +1,6 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-
-import { User } from '../static/user';
-
-import { MessageService } from 'primeng/api';
-import { Summary, Detail } from '../static/messages';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
@@ -29,7 +21,7 @@ export class UserService {
   }
 
   getUserData(id: string) {
-    return this.angularFireDatabase.list(`/users/${id}`);
+    return this.angularFireDatabase.list(`/users/${id}`)
   }
 
 }

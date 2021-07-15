@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { PrimeNgModule } from './primeng.module';
 import { TaskManagerComponent } from 'src/app/pages/todo-list/task-manager/task-manager.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ProductService } from '../services/productservice';
+
 import { ParametersService } from '../services/parameters.service';
 
 @NgModule({
@@ -51,7 +51,6 @@ import { ParametersService } from '../services/parameters.service';
   ],
   providers: [
     AuthService,
-    ProductService,
     MessageService,
     ParametersService,
     ConfirmationService

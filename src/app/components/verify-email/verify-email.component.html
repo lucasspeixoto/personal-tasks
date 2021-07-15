@@ -4,7 +4,7 @@
     <div class="authBlock">
       <h3>Obrigado por se registrar</h3>
 
-      <div class="formGroup" *ngIf="authService.userData as user">
+      <div class="formGroup" *ngIf="authService.providerUserData as user">
         <p class="text-center">
           Enviamos uma e-mail de confirmação para
           <strong>{{ user.email }}</strong
