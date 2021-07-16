@@ -35,4 +35,62 @@
   color: #0e961a;
   border: 1px solid #0e961a
 }
+#small-buttons {
+  display: none;
+}
 
+#small-delete-buttons {
+  display: none;
+}
+
+#delete-dialog {
+  width: 10%;
+}
+
+@media (max-width: 750px) {
+  #delete-dialog {
+    display: inline-block;
+    top: 10%;
+    left: 50%;
+    width: 90%;
+    height: 10%;
+    display: inline-block;
+    vertical-align: top;
+
+  }
+
+
+  button {
+    gap: 1px;
+    text-align: center;
+    margin: 1%;
+    width: 20vw;
+    height: 5vh;
+    font-size: x-small;
+  }
+
+}
+
+@media (max-width: 720px) {
+  button {
+    display: inline;
+  }
+
+  #big-buttons {
+    display: none;
+
+  }
+  #small-buttons {
+    display: inline;
+    gap: 8px;
+  }
+
+  #addEdit-dialog {
+    top: 10%;
+    left: 50%;
+    width: 90%;
+    height: 10%;
+    display: inline-block;
+    vertical-align: top;
+    }
+}

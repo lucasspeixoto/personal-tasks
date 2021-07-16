@@ -1,5 +1,12 @@
 .background {
   color: #0b1641;
+
+
+}
+
+.table-view {
+  width: 128%;
+  padding: 1%;
 }
 
 .container {
@@ -37,6 +44,10 @@
   color: #fff;
   border-radius: 5px;
   font-size: 0.80rem;
+}
+
+#small-add-button {
+  display: none;
 }
 
 .edit {
@@ -85,3 +96,41 @@
   color: #f5d000;
   font-weight: bold;
 }
+
+
+
+@media (max-width: 1210px) {
+  #column-text {
+    display: none;
+}
+  #column-filter-input {
+    display: none;
+  }
+
+  #small-add-button {
+    display: inline-block;
+    text-align: center;
+    font-size: x-large;
+    width: 15%;
+    margin-bottom: 1vh;
+  }
+
+  tr td {
+    display: block;
+  }
+
+  tr {
+    border: 1px solid #e6e6e6;
+    display: block;
+    margin-bottom: 2vh;
+    margin-bottom: 2vh
+  }
+
+
+  #edit-button #delete-button {
+    margin-left: 1%;
+  }
+
+}
+
+

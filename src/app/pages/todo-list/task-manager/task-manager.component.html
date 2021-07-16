@@ -1,6 +1,6 @@
 <div class="text-left">
   <!-- Dialog de Adição e Edição da Item -->
-  <p-dialog header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true" [style]="{ width: '37vw' }"
+  <p-dialog id="addEdit-dialog" header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true"
     [baseZIndex]="10000" [formGroup]="taskForm">
     <!-- Formulário -->
     <div class="p-fluid">
@@ -36,7 +36,8 @@
           autoResize="autoResize"></textarea>
       </div>
     </div>
-    <div class="p-field">
+    <!-- Big Buttons -->
+    <div id="big-buttons" class="p-field">
       <button pButton class="btn-secondary margin-10" type="button" label="Cancelar" icon="pi pi-times"
         (click)="cancelAddAndEdit()" pTooltip="Cancelar" tooltipPosition="bottom"></button>
       <button pButton type="button" label="Salvar" icon="pi pi-check" (click)="save()" [disabled]="!taskForm.valid"
@@ -44,22 +45,25 @@
       <button pButton type="button" label="Atualizar" icon="pi pi-check" (click)="update()" [disabled]="!taskForm.valid"
         pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
     </div>
+    <!-- Small Buttons -->
+    <div id="small-buttons" class="p-field">
+      <button pButton class="btn-secondary margin-10" type="button" icon="pi pi-times" (click)="cancelAddAndEdit()"
+        pTooltip="Cancelar" tooltipPosition="bottom"></button>
+      <button pButton type="button" icon="pi pi-check" (click)="save()" [disabled]="!taskForm.valid" pTooltip="Salvar"
+        tooltipPosition="bottom" *ngIf="!isEditar"></button>
+      <button pButton type="button" icon="pi pi-check" (click)="update()" [disabled]="!taskForm.valid"
+        pTooltip="Atualizar" tooltipPosition="bottom" *ngIf="isEditar"></button>
+    </div>
   </p-dialog>
   <!-- Dialog de Exclusão do Item -->
-  <p-dialog header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true" [style]="{width: '30vw'}"
-    [baseZIndex]="10000">
+  <p-dialog id="delete-dialog" header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true"
+     [baseZIndex]="10000">
     <p class="margin-0">Excluir a tarefa - <b>'{{itemNome}}'</b></p>
-    <div class="p-col-12">
-      <div class="flex-display-cols">
-        <div class="p-col-12">
-          <div class="text-end">
-            <button pButton class="action-button no" type="button" label="Não" (click)="cancelDelete()"
-              pTooltip="Cancelar" tooltipPosition="bottom"></button>
-            <button pButton class="action-button yes" type="button" label="Sim" (click)="delete()" pTooltip="Confirmar"
-              tooltipPosition="bottom"></button>
-          </div>
-        </div>
-      </div>
+    <div >
+      <button pButton class="no" type="button" icon="pi pi-times" (click)="cancelDelete()" pTooltip="Cancelar"
+        tooltipPosition="bottom"></button>
+      <button pButton class="yes" type="button" icon="pi pi-check" (click)="delete()" pTooltip="Confirmar"
+        tooltipPosition="bottom"></button>
     </div>
   </p-dialog>
   <!-- Dialog de Exibição da descrição -->

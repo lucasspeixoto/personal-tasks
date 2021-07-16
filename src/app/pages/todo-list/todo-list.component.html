@@ -5,8 +5,8 @@
   <div class="container">
     <p-toast></p-toast>
 
-    <h1 class="margin-0">Tarefas</h1>
-    <p-tabView>
+    <h1 >Tarefas</h1>
+    <p-tabView >
       <!-- Barra de loading -->
       <div style="padding: 13%; text-align: center" *ngIf="!tasks">
         <p-progressSpinner></p-progressSpinner>
@@ -22,13 +22,16 @@
       </div>
 
       <!-- Painel Contendo tabela de Tarefas diárias -->
-      <p-tabPanel header="Diário" *ngIf="tasks">
+      <p-tabPanel  header="Diário" *ngIf="tasks">
+        <button id="small-add-button" class="add" type="button" icon="pi pi-plus" pButton (click)="getAddTask()" pTooltip="Incluir Tarefa"
+            tooltipPosition="bottom"></button>
         <!-- Tabela -->
-        <p-table #dt [value]="tasks" [paginator]="true" [rows]="10" selectionMode="single"
+        <p-table class="table-view" #dt [value]="tasks" [paginator]="true" [rows]="10" selectionMode="single"
           [showCurrentPageReport]="true" currentPageReportTemplate="Total de: {totalRecords}">
           <ng-template pTemplate="header" *ngIf="showDetail">
+
             <!-- Campo de input dos filtros -->
-            <tr>
+            <tr id="column-text">
               <th class="content-column" *ngFor="let col of cols" [pSortableColumn]="col.field"
                 [ngStyle]="{ width: col.width }">
                 {{ col.header }}
@@ -36,7 +39,7 @@
               </th>
 
               <!-- Campos de ordenação dos filtros -->
-              <th style="width: 15%" class="content-column">
+              <th id="add-button" style="width: 15%" class="content-column">
                 <h1 style="text-align: center; margin: 0">
                   <button class="add" type="button" pButton (click)="getAddTask()" pTooltip="Incluir Tarefa"
                     tooltipPosition="bottom">Adicionar</button>
@@ -45,7 +48,7 @@
 
             </tr>
 
-            <tr>
+            <tr id="column-filter-input">
               <th class="content-column" *ngFor="let col of cols">
                 <input pInputText type="text" (input)="
                     dt.filter($event.target.value, col.field, 'contains')
@@ -70,12 +73,13 @@
                 }}
               </td>
 
-              <td style="text-align: center;">
-                <button class="action-button edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+              <td id="big-buttons" style="text-align: center;">
+                <button id="edit-button" class="action-button edit" pButton type="button" pInitEditableRow icon="pi pi-pencil"
                   (click)="getEditar($event, item)" pTooltip="Editar" tooltipPosition="left"></button>
-                <button class="action-button delete" pButton type="button" pInitEditableRow icon="pi pi-trash"
+                <button id="delete-button" class="action-button delete" pButton type="button" pInitEditableRow icon="pi pi-trash"
                   (click)="getExcluir($event, item)" pTooltip="Excluir" tooltipPosition="right"></button>
               </td>
+
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
