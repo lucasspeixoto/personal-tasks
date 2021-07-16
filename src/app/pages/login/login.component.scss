@@ -3,17 +3,17 @@
   align-items: stretch;
   height: 100vh;
 
-  .background-img {
-    background-image: url(../../../assets/images/illustration.svg);
-    background-position: bottom;
-    background-repeat: no-repeat, repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-  }
-
   aside {
+    .background-img {
+      background-image: url(../../../assets/images/illustration.svg);
+      background-position: bottom;
+      background-repeat: no-repeat, repeat;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+    }
+
     flex: 7;
 
     background: linear-gradient(100deg, #0e961a, #0e9674, #2443f0);
@@ -167,5 +167,48 @@
     }
   }
 
+}
+
+@media (max-width: 850px) {
+  #page-auth aside {
+    display: none;
+  }
+}
+
+@media (max-height: 540px) {
+  img {
+    display: none;
+  }
+
+  .separator span {
+    display: none;
+
+  }
+
+  .separator {
+    &::before, &::after{
+      display: none;
+
+    }
+  }
+
+  #page-auth {
+    padding-top: 10%
+  }
+
+  .button {
+    margin-top: -5%
+
+  }
+
+  .google-login {
+    width: 50%;
+    margin-top: -13%;
+  }
+
+  .main-content form input {
+      margin-top: -50%;
+      margin-bottom: -20%;
+  }
 
 }

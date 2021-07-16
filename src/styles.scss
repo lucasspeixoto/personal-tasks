@@ -160,7 +160,7 @@ body .p-button:enabled:active {
   color: #2443f0;
   border: 1px solid #2443f0
 }
-
+/*
 body .btn-language {
   color: #ffffff;
   background-color: #2443f0;
@@ -180,11 +180,12 @@ body .ui-fileupload-choose:not(.ui-state-disabled):hover {
   background-color: #fff;
   color: #2443f0;
   border: 1px solid #2443f0;
-}
+} */
 
 body .ui-dialog {
   max-width: 80%;
   min-width: 400px;
+  border: 1px solid #000;
 }
 
 body .ui-dialog .ui-dialog-titlebar {
@@ -368,4 +369,18 @@ textarea {
 
 .textArea {
   width: 100%;
+}
+
+@media (max-height: 540px) {
+  .button {
+
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+
+  }
+
+  .p-button {
+    font-size: 0.875rem;
+    padding: 0.2375rem 0.475rem;
+  }
 }

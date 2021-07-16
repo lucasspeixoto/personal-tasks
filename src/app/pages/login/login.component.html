@@ -17,8 +17,8 @@
         height="100"
       />
 
-      <form [formGroup]="loginForm">
-        <input
+      <form [formGroup]="loginForm" >
+        <input class="input-email"
           type="text"
           placeholder="E-mail"
           formControlName="email"
@@ -42,7 +42,10 @@
           <i class="pi pi-step-forward"></i>
         </button>
 
-        <div class="separator">ou</div>
+        <div class="separator">
+          <span>ou</span>
+        </div>
+
         <button class="google-login button-effect" (click)="authService.GoogleAuth()">
           <i class="pi pi-google"></i>
           Faça login com o Google
