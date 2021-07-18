@@ -1,6 +1,6 @@
 <div class="text-left">
   <!-- Dialog de Adição e Edição da Item -->
-  <p-dialog id="addEdit-dialog" header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true"
+  <p-dialog id="addEdit-dialog" [style]="{width: '80%'}" header="{{dialogTitle}}" [(visible)]="displayAddEdit" [modal]="true"
     [baseZIndex]="10000" [formGroup]="taskForm">
     <!-- Formulário -->
     <div class="p-fluid">
@@ -12,11 +12,7 @@
       <!-- Horário -->
       <div class="p-field">
         <label for="time">Horário</label>
-        <!-- <p-calendar id="time" type="text" [timeOnly]="true" hourFormat="24" formControlName="time" placeholder="Horário" required ></p-calendar> -->
-        <!-- <input id="time" type="text" pInputText formControlName="time" minlength="2" placeholder="Horário" required /> -->
-        <!-- <p-calendar formControlName="time" dateFormat="yyyy-mm-dd, HH:mm:ss" [timeOnly]="true" (onSelect)="setTime($event)" inputId="time"></p-calendar> -->
         <input id="time" type="time" pInputText formControlName="time" minlength="2" placeholder="Tarefa" required />
-
       </div>
       <!-- Categoria -->
       <div class="p-field">
@@ -56,10 +52,9 @@
     </div>
   </p-dialog>
   <!-- Dialog de Exclusão do Item -->
-  <p-dialog id="delete-dialog" header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true"
-     [baseZIndex]="10000">
+  <p-dialog id="delete-dialog" header="Excluir Tarefa" [(visible)]="displayDelete" [modal]="true" [baseZIndex]="10000">
     <p class="margin-0">Excluir a tarefa - <b>'{{itemNome}}'</b></p>
-    <div >
+    <div>
       <button pButton class="no" type="button" icon="pi pi-times" (click)="cancelDelete()" pTooltip="Cancelar"
         tooltipPosition="bottom"></button>
       <button pButton class="yes" type="button" icon="pi pi-check" (click)="delete()" pTooltip="Confirmar"
@@ -73,5 +68,4 @@
   </p-dialog>
 
   <!-- <b>{{ taskForm.value | json }}</b> -->
-
 </div>

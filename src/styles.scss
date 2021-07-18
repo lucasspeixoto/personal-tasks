@@ -108,15 +108,21 @@ body .p-button {
   border-radius: 5px;
   font-size: 0.875rem;
   padding: 0.4375rem 0.875rem;
+  height: 4%;
+  display: inline-block;
+  vertical-align: top;
 }
 
 body .btn-secondary {
+  display: inline-block;
+  vertical-align: top;
   color: #fff;
   background-color: #0e961a;
   border: 1px solid #0e961a;
   font-size: 0.875rem;
   padding: 0.4375rem 0.875rem;
   margin-right: 1%;
+  height: 4%;
 }
 
 body .btn-secondary:enabled:hover {
@@ -160,27 +166,6 @@ body .p-button:enabled:active {
   color: #2443f0;
   border: 1px solid #2443f0
 }
-/*
-body .btn-language {
-  color: #ffffff;
-  background-color: #2443f0;
-  border: 1px solid #2443f0;
-  border-radius: 5px;
-  font-size: 0.875rem;
-  padding: 0.4375rem 0.875rem;
-}
-
-body .btn-language:enabled:hover {
-  background-color: #fff;
-  color: #2443f0;
-  border: 1px solid #2443f0
-}
-
-body .ui-fileupload-choose:not(.ui-state-disabled):hover {
-  background-color: #fff;
-  color: #2443f0;
-  border: 1px solid #2443f0;
-} */
 
 body .ui-dialog {
   max-width: 80%;
